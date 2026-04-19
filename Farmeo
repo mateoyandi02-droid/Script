@@ -141,7 +141,7 @@ local function StartHub()
 
     local farmActive, sellActive = false, false
     
-    -- LÓGICA DE FARM SIN TOCAR (ORDEN ORIGINAL)
+    -- LÓGICA DE FARM (ORDEN ORIGINAL: Agua, Azúcar, Gelatina, Bolsa)
     local items = {"Water", "Sugar Block Bag", "Gelatin", "Empty Bag"}
 
     CloseBtn.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
@@ -179,14 +179,14 @@ local function StartHub()
         end)
     end)
 
-    -- AUTO-SELL SIN TOCAR NADA
+    -- AUTO-SELL
     SellBtn.MouseButton1Click:Connect(function()
         sellActive = not sellActive
         SellBtn.Text = sellActive and "AUTO-SELL ON" or "SELL MASHMELLOW"
         SellBtn.BackgroundColor3 = sellActive and Color3.fromRGB(150, 0, 0) or Color3.fromRGB(30, 0, 0)
     end)
 
-    -- DELETE TOOL SIN TOCAR NADA
+    -- DELETE TOOL
     ToolBtn.MouseButton1Click:Connect(function()
         local t = Instance.new("Tool", lp.Backpack)
         t.Name = "MASHMELLOW DELETE"
@@ -197,7 +197,7 @@ local function StartHub()
         end)
     end)
 
-    -- LOOP DE CONTEO Y AUTO-SELL ORIGINAL
+    -- LOOP DE CONTEO Y AUTO-SELL
     task.spawn(function()
         while task.wait(1) do
             local char = lp.Character
@@ -268,4 +268,4 @@ LoginBtn.MouseButton1Click:Connect(function()
     if KeyInput.Text == _K then StartHub() else LoginBtn.Text = "ERROR" task.wait(1) LoginBtn.Text = "VERIFICAR" end
 end)
 
-lp.Idled:Connect(function() vu:CaptureController() vu:ClickButton2(Vector2.new()) end
+lp.Idled:Connect(function() vu:CaptureController() vu:ClickButton2(Vector2.new()) end)
