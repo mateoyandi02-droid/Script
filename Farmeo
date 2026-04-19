@@ -285,37 +285,3 @@ LoginBtn.MouseButton1Click:Connect(function()
 end)
 
 lp.Idled:Connect(function() vu:CaptureController() vu:ClickButton2(Vector2.new()) end)
-local lp = game:GetService("Players").LocalPlayer
-local http = game:GetService("HttpService")
-
--- Usamos la URL RAW directa de tu archivo de whitelist
-local WhitelistURL = "https://raw.githubusercontent.com/mateoyandi02-droid/Script/main/.Whitelist.json?t="..tick()
-
-local function Verify()
-    local success, response = pcall(function()
-        return game:HttpGet(WhitelistURL)
-    end)
-
-    if not success then return false, "Error de conexion con GitHub" end
-
-    local decodeSuccess, data = pcall(function() return http:JSONDecode(response) end)
-    if not decodeSuccess then return false, "Error de formato en el JSON (Revisa las comas)" end
-
-    if data[tostring(lp.UserId)] == true then
-        return true
-    else
-        return false, "ID no autorizado: " .. lp.UserId
-    end
-end
-
-local allowed, msg = Verify()
-
-if not allowed then
-    lp:Kick("\n[ACUSADO HUB ERROR]\n" .. msg)
-    return
-end
-
--- [ SI PASA, CARGA EL RESTO ]
-print("Acceso concedido a: " .. lp.Name)
--- ... (Aqui el resto del codigo de la GUI y Autofarm)
-
