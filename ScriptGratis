@@ -1,0 +1,245 @@
+-- ACUSADO HUB - SOUTH BRONX
+-- KEY: ACUSADO
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local vim = game:GetService("VirtualInputManager")
+local StarterGui = game:GetService("StarterGui")
+local L_Plr = Players.LocalPlayer
+
+local G_ID = HttpService:GenerateGUID(false)
+local ScreenGui = Instance.new("ScreenGui")
+local Success_P = pcall(function()
+    ScreenGui.Parent = game:GetService("CoreGui")
+end)
+if not Success_P then ScreenGui.Parent = L_Plr:WaitForChild("PlayerGui") end
+ScreenGui.Name = G_ID
+
+-- [ BANNER SUPERIOR DE PANTALLA ]
+local TopBanner = Instance.new("Frame", ScreenGui)
+TopBanner.Size = UDim2.new(0, 380, 0, 35)
+TopBanner.Position = UDim2.new(0.5, -190, 0, 10)
+TopBanner.BackgroundColor3 = Color3.fromRGB(15, 20, 32)
+TopBanner.BorderSizePixel = 0
+Instance.new("UICorner", TopBanner).CornerRadius = UDim.new(0, 8)
+
+local B_Stroke = Instance.new("UIStroke", TopBanner)
+B_Stroke.Color = Color3.fromRGB(0, 140, 255)
+B_Stroke.Thickness = 2
+
+local BannerText = Instance.new("TextLabel", TopBanner)
+BannerText.Size = UDim2.new(1, 0, 1, 0)
+BannerText.BackgroundTransparency = 1
+BannerText.Text = "🥷 SCRIPT GRATIS EN EL DISCORD DE ACUSADO 🥷"
+BannerText.TextColor3 = Color3.fromRGB(0, 180, 255)
+BannerText.Font = Enum.Font.GothamBold
+BannerText.TextSize = 13
+
+local farmActive = false
+local items = {"Water", "Sugar Block Bag", "Gelatin", "Empty Bag"}
+
+local DarkBg = Color3.fromRGB(10, 14, 23)
+local FrameBg = Color3.fromRGB(15, 20, 32)
+local AccentBlue = Color3.fromRGB(0, 140, 255)
+local BrightBlue = Color3.fromRGB(0, 180, 255)
+local TextColor = Color3.fromRGB(240, 240, 240)
+
+local LoginFrame = Instance.new("Frame", ScreenGui)
+LoginFrame.Size = UDim2.new(0, 280, 0, 180)
+LoginFrame.Position = UDim2.new(0.5, -140, 0.4, -90)
+LoginFrame.BackgroundColor3 = FrameBg
+LoginFrame.BorderSizePixel = 0
+Instance.new("UICorner", LoginFrame).CornerRadius = UDim.new(0, 8)
+
+local L_Stroke = Instance.new("UIStroke", LoginFrame)
+L_Stroke.Color = AccentBlue
+L_Stroke.Thickness = 2
+
+local LoginTitle = Instance.new("TextLabel", LoginFrame)
+LoginTitle.Size = UDim2.new(1, 0, 0, 45)
+LoginTitle.Text = "🥷 ACUSADO LOGIN"
+LoginTitle.TextColor3 = BrightBlue
+LoginTitle.BackgroundTransparency = 1
+LoginTitle.Font = Enum.Font.GothamBold
+LoginTitle.TextSize = 18
+
+local KeyInput = Instance.new("TextBox", LoginFrame)
+KeyInput.Size = UDim2.new(0.85, 0, 0, 38)
+KeyInput.Position = UDim2.new(0.075, 0, 0.35, 0)
+KeyInput.PlaceholderText = "Escribe la Key..."
+KeyInput.PlaceholderColor3 = Color3.fromRGB(120, 140, 160)
+KeyInput.BackgroundColor3 = DarkBg
+KeyInput.TextColor3 = TextColor
+KeyInput.Font = Enum.Font.Gotham
+KeyInput.TextSize = 14
+Instance.new("UICorner", KeyInput).CornerRadius = UDim.new(0, 6)
+
+local KeyStroke = Instance.new("UIStroke", KeyInput)
+KeyStroke.Color = Color3.fromRGB(30, 45, 65)
+KeyStroke.Thickness = 1
+
+local LoginBtn = Instance.new("TextButton", LoginFrame)
+LoginBtn.Size = UDim2.new(0.85, 0, 0, 38)
+LoginBtn.Position = UDim2.new(0.075, 0, 0.68, 0)
+LoginBtn.BackgroundColor3 = AccentBlue
+LoginBtn.Text = "ENTRAR"
+LoginBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+LoginBtn.Font = Enum.Font.GothamBold
+LoginBtn.TextSize = 14
+Instance.new("UICorner", LoginBtn).CornerRadius = UDim.new(0, 6)
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0, 300, 0, 200)
+MainFrame.Position = UDim2.new(0.5, -150, 0.4, -100)
+MainFrame.BackgroundColor3 = FrameBg
+MainFrame.Visible = false
+MainFrame.Active = true
+MainFrame.Draggable = true
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 8)
+
+local M_Stroke = Instance.new("UIStroke", MainFrame)
+M_Stroke.Color = AccentBlue
+M_Stroke.Thickness = 2
+
+local ToggleBtn = Instance.new("TextButton", ScreenGui)
+ToggleBtn.Size = UDim2.new(0, 42, 0, 42)
+ToggleBtn.Position = UDim2.new(0, 15, 0.5, -21)
+ToggleBtn.BackgroundColor3 = FrameBg
+ToggleBtn.Text = "🥷"
+ToggleBtn.TextColor3 = BrightBlue
+ToggleBtn.TextSize = 18
+ToggleBtn.Font = Enum.Font.GothamBold
+ToggleBtn.Visible = false
+Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(0, 8)
+
+local T_Stroke = Instance.new("UIStroke", ToggleBtn)
+T_Stroke.Color = AccentBlue
+T_Stroke.Thickness = 2
+
+local MainTitle = Instance.new("TextLabel", MainFrame)
+MainTitle.Size = UDim2.new(1, 0, 0, 40)
+MainTitle.Text = "🥷 ACUSADO CONTROL"
+MainTitle.TextColor3 = BrightBlue
+MainTitle.BackgroundTransparency = 1
+MainTitle.Font = Enum.Font.GothamBold
+MainTitle.TextSize = 16
+
+local FarmBtn = Instance.new("TextButton", MainFrame)
+FarmBtn.Size = UDim2.new(0.88, 0, 0, 45)
+FarmBtn.Position = UDim2.new(0.06, 0, 0.28, 0)
+FarmBtn.BackgroundColor3 = AccentBlue
+FarmBtn.Text = "START AUTO-FARM"
+FarmBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+FarmBtn.Font = Enum.Font.GothamBold
+FarmBtn.TextSize = 14
+Instance.new("UICorner", FarmBtn).CornerRadius = UDim.new(0, 6)
+
+local StatusPanel = Instance.new("Frame", MainFrame)
+StatusPanel.Size = UDim2.new(0.88, 0, 0, 40)
+StatusPanel.Position = UDim2.new(0.06, 0, 0.65, 0)
+StatusPanel.BackgroundColor3 = DarkBg
+Instance.new("UICorner", StatusPanel).CornerRadius = UDim.new(0, 6)
+
+local StatusStroke = Instance.new("UIStroke", StatusPanel)
+StatusStroke.Color = Color3.fromRGB(25, 35, 50)
+
+local StatusLabel = Instance.new("TextLabel", StatusPanel)
+StatusLabel.Size = UDim2.new(1, 0, 1, 0)
+StatusLabel.Text = "LISTO PARA EL TRABAJO"
+StatusLabel.TextColor3 = Color3.fromRGB(180, 200, 220)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Font = Enum.Font.Gotham
+StatusLabel.TextSize = 11
+
+local function GiveDeleteTool()
+    pcall(function()
+        if not L_Plr.Backpack:FindFirstChild("ACUSADO") then
+            local Tool = Instance.new("Tool")
+            Tool.Name = "ACUSADO"
+            Tool.RequiresHandle = false
+            Tool.Parent = L_Plr.Backpack
+            Tool.Activated:Connect(function()
+                local Mouse = L_Plr:GetMouse()
+                if Mouse.Target then
+                    pcall(function() Mouse.Target:Destroy() end)
+                end
+            end)
+        end
+    end)
+end
+
+LoginBtn.MouseButton1Click:Connect(function()
+    if KeyInput.Text == "ACUSADO" then
+        LoginFrame:Destroy()
+        MainFrame.Visible = true
+        ToggleBtn.Visible = true
+    else
+        LoginBtn.Text = "KEY INCORRECTA"
+        LoginBtn.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+        task.wait(1)
+        LoginBtn.Text = "ENTRAR"
+        LoginBtn.BackgroundColor3 = AccentBlue
+    end
+end)
+
+ToggleBtn.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+    ToggleBtn.Text = MainFrame.Visible and "❌" or "🥷"
+end)
+
+FarmBtn.MouseButton1Click:Connect(function()
+    farmActive = not farmActive
+    if farmActive then
+        FarmBtn.Text = "STOP FARM"
+        FarmBtn.BackgroundColor3 = Color3.fromRGB(200, 40, 40)
+        StatusLabel.Text = "STATUS: 🥷 MODO NINJA ACTIVO"
+        
+        GiveDeleteTool()
+        
+        task.spawn(function()
+            while farmActive do
+                local foundAny = false
+                pcall(function()
+                    for _, itemName in ipairs(items) do
+                        if not farmActive then break end
+                        local char = L_Plr.Character
+                        local tool = L_Plr.Backpack:FindFirstChild(itemName) or (char and char:FindFirstChild(itemName))
+                        
+                        if tool and char and char:FindFirstChild("Humanoid") then
+                            foundAny = true
+                            char.Humanoid:EquipTool(tool)
+                            task.wait(0.3)
+                            
+                            vim:SendMouseButtonEvent(0, 0, 0, true, game, 0)
+                            task.wait(0.1)
+                            vim:SendMouseButtonEvent(0, 0, 0, false, game, 0)
+                            
+                            task.wait(0.2)
+                            vim:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+                            task.wait(0.1)
+                            vim:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+                            task.wait(1.5)
+                        end
+                    end
+                end)
+                
+                if not foundAny and farmActive then
+                    StatusLabel.Text = "STATUS: ❌ BUSCANDO INGREDIENTES..."
+                end
+                task.wait(0.5)
+            end
+        end)
+    else
+        FarmBtn.Text = "START AUTO-FARM"
+        FarmBtn.BackgroundColor3 = AccentBlue
+        StatusLabel.Text = "STATUS: DETENIDO"
+    end
+end)
+
+pcall(function()
+    L_Plr.Idled:Connect(function()
+        game:GetService("VirtualUser"):CaptureController()
+        game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+    end)
+end)
