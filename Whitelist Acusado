@@ -1,32 +1,52 @@
--- [[ ACUSADO HUB // SOUTH BRONX THE TRENCHER // FINAL VERSION FIX ✅ ]]
+-- [[ ACUSADO HUB // SOUTH BRONX THE TRENCHER // VOLT BLACK EDITION ✅ ]]
 local Players = game:GetService("Players")
 local L_Plr = Players.LocalPlayer
 local HttpService = game:GetService("HttpService")
 
--- CONFIGURACIÓN DE SEGURIDAD (Whitelist desde tu GitHub)
+-- [[ ACUSADO HUB // SISTEMA DE SEGURIDAD PRO ]]
+local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
 local URL_WHITELIST = "https://raw.githubusercontent.com/mateoyandi02-droid/Script/refs/heads/main/Whitelist.json?t=" .. math.random(1, 9999)
 
+local function SecureKick(reason)
+    L_Plr:Kick("\n🛡️ ACUSADO HUB SECURITY 🛡️\n" .. reason .. "\n\nID: " .. L_Plr.UserId .. "\nHWID: " .. string.sub(HWID, 1, 15) .. "...")
+end
+
 local function CheckWhitelist()
+    -- Anti-Http-Hook Check (Básico)
+    local test_success = pcall(function() return game:HttpGet("https://google.com") end)
+    if not test_success then
+        SecureKick("Detección de manipulación de red (Http-Hook).")
+        return false
+    end
+
     local success, result = pcall(function()
         return game:HttpGet(URL_WHITELIST)
     end)
 
     if success then
-        local ok, ids = pcall(function() return HttpService:JSONDecode(result) end)
-        if ok and type(ids) == "table" then
-            for _, id in pairs(ids) do
-                if tonumber(id) == L_Plr.UserId then
+        local ok, data = pcall(function() return HttpService:JSONDecode(result) end)
+        if ok and type(data) == "table" then
+            for _, entry in pairs(data) do
+                -- Soporta tanto lista simple de IDs como tablas con HWID
+                if type(entry) == "table" then
+                    if tonumber(entry.UserId) == L_Plr.UserId or entry.HWID == HWID then
+                        return true
+                    end
+                elseif tonumber(entry) == L_Plr.UserId then
                     return true
                 end
             end
         end
+    else
+        SecureKick("Error de conexión con el servidor de licencias.")
+        return false
     end
     
-    L_Plr:Kick("\n❌ ID NO AUTORIZADO: " .. L_Plr.UserId .. "\nAcceso denegado por ivancaba29-max")
+    SecureKick("ACCESO DENEGADO: No estás en la Whitelist oficial.")
     return false
 end
 
--- Ejecutar validación de Whitelist antes de cargar nada
+-- Ejecutar validación de seguridad antes de iniciar
 if not CheckWhitelist() then return end
 
 -- [[ INICIO DEL HUB ]]
@@ -38,18 +58,77 @@ local Mouse = L_Plr:GetMouse()
 
 local function ExecuteHub()
     local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "ACUSADO_SAFE_V5"
+    ScreenGui.Name = "ACUSADO_VOLT_BLACK"
     ScreenGui.ResetOnSpawn = false
     ScreenGui.Parent = (gethui and gethui()) or game:GetService("CoreGui")
 
-    -- [[ INTRO ]]
-    local Intro = Instance.new("Frame", ScreenGui)
-    Intro.Size = UDim2.new(0, 400, 0, 100); Intro.Position = UDim2.new(0.5, -200, 0.5, -50); Intro.BackgroundColor3 = Color3.fromRGB(15, 15, 25); Intro.ZIndex = 100
-    Instance.new("UICorner", Intro); Instance.new("UIStroke", Intro).Color = Color3.fromRGB(60, 60, 220)
-    local IT = Instance.new("TextLabel", Intro); IT.Size = UDim2.new(1, 0, 1, 0); IT.Text = "ACUSADO SCRIPT EXECUTED ✅"; IT.TextColor3 = Color3.new(1,1,1); IT.Font = Enum.Font.GothamBold; IT.TextSize = 20; IT.BackgroundTransparency = 1
-    task.wait(2.5); Intro:Destroy()
+    -- [[ INTRO PROFESIONAL ]]
+    local TweenService = game:GetService("TweenService")
+    local Intro = Instance.new("Frame")
+    Intro.Name = "IntroFrame"
+    Intro.Parent = ScreenGui
+    Intro.Size = UDim2.new(0, 420, 0, 100)
+    Intro.Position = UDim2.new(0.5, -210, 0.5, -50)
+    Intro.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+    Intro.BackgroundTransparency = 1 -- Empezamos invisible
+    Intro.ZIndex = 999
+    Instance.new("UICorner", Intro).CornerRadius = UDim.new(0, 8)
+    
+    local IntroStroke = Instance.new("UIStroke", Intro)
+    IntroStroke.Color = Color3.fromRGB(0, 140, 255)
+    IntroStroke.Thickness = 1.8
+    IntroStroke.Transparency = 1
 
-    -- // VARIABLES //
+    local IT = Instance.new("TextLabel")
+    IT.Name = "IntroText"
+    IT.Parent = Intro
+    IT.Size = UDim2.new(1, 0, 1, 0)
+    IT.BackgroundTransparency = 1
+    IT.Text = "EXECUTING THE BEST SCRIPT BY ACUSADO"
+    IT.TextColor3 = Color3.fromRGB(255, 255, 255)
+    IT.Font = Enum.Font.GothamMedium
+    IT.TextSize = 16 -- Tamaño fijo para que se vea elegante
+    IT.TextTransparency = 1
+    IT.ZIndex = 1000
+
+    -- Barra de carga estética abajo
+    local LoadingBarBG = Instance.new("Frame", Intro)
+    LoadingBarBG.Size = UDim2.new(0.8, 0, 0, 2)
+    LoadingBarBG.Position = UDim2.new(0.1, 0, 0.8, 0)
+    LoadingBarBG.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    LoadingBarBG.BorderSizePixel = 0
+    LoadingBarBG.ZIndex = 1000
+    LoadingBarBG.BackgroundTransparency = 1
+
+    local LoadingBar = Instance.new("Frame", LoadingBarBG)
+    LoadingBar.Size = UDim2.new(0, 0, 1, 0)
+    LoadingBar.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+    LoadingBar.BorderSizePixel = 0
+    LoadingBar.ZIndex = 1001
+
+    -- Animación de entrada
+    TweenService:Create(Intro, TweenInfo.new(0.5), {BackgroundTransparency = 0}):Play()
+    TweenService:Create(IntroStroke, TweenInfo.new(0.5), {Transparency = 0}):Play()
+    TweenService:Create(IT, TweenInfo.new(0.7), {TextTransparency = 0}):Play()
+    TweenService:Create(LoadingBarBG, TweenInfo.new(0.5), {BackgroundTransparency = 0}):Play()
+    
+    -- Animación de la barra de carga
+    local loadTween = TweenService:Create(LoadingBar, TweenInfo.new(2.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(1, 0, 1, 0)})
+    loadTween:Play()
+    
+    loadTween.Completed:Wait()
+    task.wait(0.5)
+
+    -- Animación de salida
+    TweenService:Create(Intro, TweenInfo.new(0.5), {BackgroundTransparency = 1}):Play()
+    TweenService:Create(IntroStroke, TweenInfo.new(0.5), {Transparency = 1}):Play()
+    TweenService:Create(IT, TweenInfo.new(0.5), {TextTransparency = 1}):Play()
+    TweenService:Create(LoadingBarBG, TweenInfo.new(0.5), {BackgroundTransparency = 1}):Play()
+    
+    task.wait(0.5)
+    Intro:Destroy()
+
+    -- // VARIABLES GLOBAL Y ESTADOS //
     _G.Hitbox_Size = 15
     _G.Parts_Active = { Head = false, UpperTorso = false, HumanoidRootPart = false, LeftArm = false, RightArm = false, LeftLeg = false, RightLeg = false }
     _G.Visuals = { Box = true, Names = true, Dist = true, Weapon = true, HealthBar = true, Tracers = true }
@@ -57,57 +136,384 @@ local function ExecuteHub()
     _G.Misc = { Speed_On = false, SpeedVal = 16, FullBright = false }
     local DeletedObjects = {}
 
-    -- [[ INTERFAZ + PORTADA ]]
+    -- [[ PALETA NEGRO PURO ]]
+    local PureBlack = Color3.fromRGB(0, 0, 0)
+    local DarkCard = Color3.fromRGB(10, 10, 10)
+    local AccentBlue = Color3.fromRGB(0, 140, 255)
+    local TextWhite = Color3.fromRGB(255, 255, 255)
+    local TextDark = Color3.fromRGB(120, 120, 120)
+    local BorderDark = Color3.fromRGB(30, 30, 30)
+
+    -- [[ VENTANA PRINCIPAL ]]
     local MainFrame = Instance.new("Frame", ScreenGui)
-    MainFrame.Size = UDim2.new(0, 580, 0, 450); MainFrame.Position = UDim2.new(0.5, -290, 0.5, -225); MainFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 18); MainFrame.Visible = false; MainFrame.Active = true; MainFrame.Draggable = true
-    Instance.new("UICorner", MainFrame); Instance.new("UIStroke", MainFrame).Color = Color3.fromRGB(60, 60, 220)
-    local MenuTitle = Instance.new("TextLabel", MainFrame); MenuTitle.Size = UDim2.new(1, 0, 0, 40); MenuTitle.Position = UDim2.new(0, 160, 0, 5); MenuTitle.Text = "Acusado Hub // South Bronx The Treach Best Script"; MenuTitle.TextColor3 = Color3.fromRGB(80, 80, 255); MenuTitle.Font = Enum.Font.GothamBold; MenuTitle.TextSize = 14; MenuTitle.BackgroundTransparency = 1; MenuTitle.TextXAlignment = 0
+    MainFrame.Size = UDim2.new(0, 560, 0, 380)
+    MainFrame.Position = UDim2.new(0.5, -280, 0.5, -190)
+    MainFrame.BackgroundColor3 = PureBlack
+    MainFrame.Visible = false
+    MainFrame.Active = true
+    MainFrame.Draggable = true
+    Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
 
-    local MiniBar = Instance.new("Frame", ScreenGui); MiniBar.Size = UDim2.new(0, 450, 0, 35); MiniBar.Position = UDim2.new(0.5, -225, 0, 10); MiniBar.BackgroundColor3 = Color3.fromRGB(15, 15, 20); MiniBar.Visible = false; MiniBar.Active = true; MiniBar.Draggable = true; Instance.new("UICorner", MiniBar); Instance.new("UIStroke", MiniBar).Color = Color3.fromRGB(60, 60, 220)
-    local MiniTitle = Instance.new("TextLabel", MiniBar); MiniTitle.Size = UDim2.new(1, -40, 1, 0); MiniTitle.Position = UDim2.new(0, 15, 0, 0); MiniTitle.Text = "Acusado Hub // South Bronx The Treach Best Script"; MiniTitle.TextColor3 = Color3.fromRGB(80, 80, 255); MiniTitle.Font = Enum.Font.GothamBold; MiniTitle.TextSize = 11; MiniTitle.BackgroundTransparency = 1; MiniTitle.TextXAlignment = 0
-    local MaxBtn = Instance.new("TextButton", MiniBar); MaxBtn.Size = UDim2.new(0, 30, 0, 30); MaxBtn.Position = UDim2.new(1, -35, 0, 2.5); MaxBtn.Text = "+"; MaxBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 220); MaxBtn.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", MaxBtn)
-    local MinBtn = Instance.new("TextButton", MainFrame); MinBtn.Size = UDim2.new(0, 30, 0, 30); MinBtn.Position = UDim2.new(1, -40, 0, 10); MinBtn.Text = "-"; MinBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 220); MinBtn.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", MinBtn)
-    MinBtn.MouseButton1Click:Connect(function() MainFrame.Visible = false; MiniBar.Visible = true end); MaxBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; MiniBar.Visible = false end)
+    local MainStroke = Instance.new("UIStroke", MainFrame)
+    MainStroke.Color = BorderDark
+    MainStroke.Thickness = 1.5
 
-    local Sidebar = Instance.new("Frame", MainFrame); Sidebar.Size = UDim2.new(0, 140, 1, -60); Sidebar.Position = UDim2.new(0, 10, 0, 50); Sidebar.BackgroundTransparency = 1; Instance.new("UIListLayout", Sidebar).Padding = UDim.new(0, 5)
-    local Container = Instance.new("Frame", MainFrame); Container.Position = UDim2.new(0, 160, 0, 50); Container.Size = UDim2.new(1, -170, 1, -70); Container.BackgroundColor3 = Color3.fromRGB(18, 18, 25); Instance.new("UICorner", Container)
+    -- TOP BAR
+    local TopBar = Instance.new("Frame", MainFrame)
+    TopBar.Size = UDim2.new(1, 0, 0, 40)
+    TopBar.BackgroundTransparency = 1
+
+    local MenuTitle = Instance.new("TextLabel", TopBar)
+    MenuTitle.Position = UDim2.new(0, 15, 0, 0)
+    MenuTitle.Size = UDim2.new(0, 350, 1, 0)
+    MenuTitle.Text = "⚡ Acusado Hub - South Bronx : The Trenches"
+    MenuTitle.TextColor3 = TextWhite
+    MenuTitle.Font = Enum.Font.GothamBold
+    MenuTitle.TextSize = 13
+    MenuTitle.TextXAlignment = Enum.TextXAlignment.Left
+    MenuTitle.BackgroundTransparency = 1
+
+    local MinBtn = Instance.new("TextButton", TopBar)
+    MinBtn.Size = UDim2.new(0, 26, 0, 26)
+    MinBtn.Position = UDim2.new(1, -35, 0.5, -13)
+    MinBtn.Text = "-"
+    MinBtn.Font = Enum.Font.GothamBold
+    MinBtn.BackgroundColor3 = DarkCard
+    MinBtn.TextColor3 = TextWhite
+    MinBtn.TextSize = 14
+    Instance.new("UICorner", MinBtn).CornerRadius = UDim.new(0, 6)
+
+    -- BARRA MINIMIZADA
+    local MiniBar = Instance.new("Frame", ScreenGui)
+    MiniBar.Size = UDim2.new(0, 300, 0, 35)
+    MiniBar.Position = UDim2.new(0.5, -150, 0, 15)
+    MiniBar.BackgroundColor3 = PureBlack
+    MiniBar.Visible = false
+    MiniBar.Active = true
+    MiniBar.Draggable = true
+    Instance.new("UICorner", MiniBar).CornerRadius = UDim.new(0, 8)
+    local MiniStroke = Instance.new("UIStroke", MiniBar)
+    MiniStroke.Color = AccentBlue
+
+    local MiniTitle = Instance.new("TextLabel", MiniBar)
+    MiniTitle.Size = UDim2.new(1, -40, 1, 0)
+    MiniTitle.Position = UDim2.new(0, 12, 0, 0)
+    MiniTitle.Text = "⚡ Acusado Hub [Minimizado]"
+    MiniTitle.TextColor3 = AccentBlue
+    MiniTitle.Font = Enum.Font.GothamBold
+    MiniTitle.TextSize = 12
+    MiniTitle.BackgroundTransparency = 1
+    MiniTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+    local MaxBtn = Instance.new("TextButton", MiniBar)
+    MaxBtn.Size = UDim2.new(0, 25, 0, 25)
+    MaxBtn.Position = UDim2.new(1, -30, 0.5, -12)
+    MaxBtn.Text = "+"
+    MaxBtn.Font = Enum.Font.GothamBold
+    MaxBtn.BackgroundColor3 = AccentBlue
+    MaxBtn.TextColor3 = TextWhite
+    Instance.new("UICorner", MaxBtn).CornerRadius = UDim.new(0, 6)
+
+    MinBtn.MouseButton1Click:Connect(function() MainFrame.Visible = false; MiniBar.Visible = true end)
+    MaxBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; MiniBar.Visible = false end)
+
+    -- NAVEGACIÓN SUPERIOR
+    local TabContainer = Instance.new("Frame", MainFrame)
+    TabContainer.Size = UDim2.new(1, -30, 0, 35)
+    TabContainer.Position = UDim2.new(0, 15, 0, 40)
+    TabContainer.BackgroundColor3 = DarkCard
+    Instance.new("UICorner", TabContainer).CornerRadius = UDim.new(0, 8)
+
+    local TabLayout = Instance.new("UIListLayout", TabContainer)
+    TabLayout.FillDirection = Enum.FillDirection.Horizontal
+    TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+    TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    TabLayout.Padding = UDim.new(0, 5)
+
+    local TabPadding = Instance.new("UIPadding", TabContainer)
+    TabPadding.PaddingLeft = UDim.new(0, 5)
+    TabPadding.PaddingTop = UDim.new(0, 4)
+
+    -- CONTENEDOR DE PÁGINAS
+    local PageContainer = Instance.new("Frame", MainFrame)
+    PageContainer.Size = UDim2.new(1, -30, 1, -90)
+    PageContainer.Position = UDim2.new(0, 15, 0, 80)
+    PageContainer.BackgroundTransparency = 1
 
     local Tabs = {}
-    local function CreateTab(name) local f = Instance.new("ScrollingFrame", Container); f.Size = UDim2.new(1, -10, 1, -10); f.BackgroundTransparency = 1; f.Visible = false; f.ScrollBarThickness = 2; Instance.new("UIListLayout", f).Padding = UDim.new(0, 8); Tabs[name] = f; return f end
-    local CombatTab = CreateTab("Combat"); local VisualsTab = CreateTab("Visuals"); local FarmTab = CreateTab("Farm"); local MiscTab = CreateTab("Misc")
-    local function AddTabBtn(txt, target) local b = Instance.new("TextButton", Sidebar); b.Size = UDim2.new(1, 0, 0, 38); b.BackgroundColor3 = Color3.fromRGB(25, 25, 35); b.Text = "  "..txt; b.TextColor3 = Color3.new(1,1,1); b.Font = Enum.Font.GothamBold; b.TextSize = 12; b.TextXAlignment = 0; Instance.new("UICorner", b); b.MouseButton1Click:Connect(function() for _, t in pairs(Tabs) do t.Visible = false end Tabs[target].Visible = true end) end
-    AddTabBtn("⚔️ COMBAT", "Combat"); AddTabBtn("👁️ VISUALS", "Visuals"); AddTabBtn("🚜 FARM", "Farm"); AddTabBtn("⚙️ MISC", "Misc")
+    local TabBtns = {}
 
-    local function AddToggle(parent, text, tab, var)
-        local b = Instance.new("TextButton", parent); b.Size = UDim2.new(1, -5, 0, 35); b.BackgroundColor3 = tab[var] and Color3.fromRGB(60, 60, 220) or Color3.fromRGB(30, 30, 45); b.Text = "  "..text; b.TextColor3 = Color3.new(1,1,1); b.Font = Enum.Font.Gotham; b.TextSize = 11; b.TextXAlignment = 0; Instance.new("UICorner", b)
-        b.MouseButton1Click:Connect(function() tab[var] = not tab[var] b.BackgroundColor3 = tab[var] and Color3.fromRGB(60, 60, 220) or Color3.fromRGB(30, 30, 45) end)
+    local function CreateTab(name, icon)
+        local page = Instance.new("Frame", PageContainer)
+        page.Size = UDim2.new(1, 0, 1, 0)
+        page.BackgroundTransparency = 1
+        page.Visible = false
+
+        local leftCol = Instance.new("ScrollingFrame", page)
+        leftCol.Size = UDim2.new(0.485, 0, 1, 0)
+        leftCol.Position = UDim2.new(0, 0, 0, 0)
+        leftCol.BackgroundTransparency = 1
+        leftCol.ScrollBarThickness = 2
+        leftCol.CanvasSize = UDim2.new(0, 0, 0, 0)
+        leftCol.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        local lLayout = Instance.new("UIListLayout", leftCol)
+        lLayout.Padding = UDim.new(0, 10)
+
+        local rightCol = Instance.new("ScrollingFrame", page)
+        rightCol.Size = UDim2.new(0.485, 0, 1, 0)
+        rightCol.Position = UDim2.new(0.515, 0, 0, 0)
+        rightCol.BackgroundTransparency = 1
+        rightCol.ScrollBarThickness = 2
+        rightCol.CanvasSize = UDim2.new(0, 0, 0, 0)
+        rightCol.AutomaticCanvasSize = Enum.AutomaticSize.Y
+        local rLayout = Instance.new("UIListLayout", rightCol)
+        rLayout.Padding = UDim.new(0, 10)
+
+        Tabs[name] = { Page = page, Left = leftCol, Right = rightCol }
+
+        local tabBtn = Instance.new("TextButton", TabContainer)
+        tabBtn.Size = UDim2.new(0, 110, 0, 27)
+        tabBtn.BackgroundColor3 = PureBlack
+        tabBtn.BackgroundTransparency = 1
+        tabBtn.Text = icon .. "  " .. name
+        tabBtn.TextColor3 = TextDark
+        tabBtn.Font = Enum.Font.GothamBold
+        tabBtn.TextSize = 11
+        Instance.new("UICorner", tabBtn).CornerRadius = UDim.new(0, 6)
+
+        tabBtn.MouseButton1Click:Connect(function()
+            for tName, tData in pairs(Tabs) do
+                tData.Page.Visible = false
+                TabBtns[tName].TextColor3 = TextDark
+                TabBtns[tName].BackgroundTransparency = 1
+            end
+            page.Visible = true
+            tabBtn.TextColor3 = TextWhite
+            tabBtn.BackgroundTransparency = 0
+            tabBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        end)
+
+        TabBtns[name] = tabBtn
+        return Tabs[name]
     end
 
-    -- [[ COMBATE ]]
-    local hbS = Instance.new("TextBox", CombatTab); hbS.Size = UDim2.new(1,-5,0,32); hbS.Text = "15"; hbS.BackgroundColor3 = Color3.fromRGB(35,35,50); hbS.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", hbS); hbS.FocusLost:Connect(function() _G.Hitbox_Size = tonumber(hbS.Text) or 15 end)
-    AddToggle(CombatTab, "SILENT AIM", _G.Combat, "SilentAim"); AddToggle(CombatTab, "TRIGGER BOT", _G.Combat, "TriggerBot"); AddToggle(CombatTab, "RAPID FIRE", _G.Combat, "RapidFire"); AddToggle(CombatTab, "NO RECOIL", _G.Combat, "NoRecoil")
-    for k,_ in pairs(_G.Parts_Active) do AddToggle(CombatTab, "ACTIVATE "..k, _G.Parts_Active, k) end
+    -- CREAR SECCIÓN (CARD)
+    local function CreateCard(parent, titleText)
+        local card = Instance.new("Frame", parent)
+        card.Size = UDim2.new(1, -5, 0, 30)
+        card.BackgroundColor3 = DarkCard
+        card.AutomaticSize = Enum.AutomaticSize.Y
+        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 8)
 
-    -- [[ VISUALES ]]
-    AddToggle(VisualsTab, "BOX ESP", _G.Visuals, "Box"); AddToggle(VisualsTab, "NAMES", _G.Visuals, "Names"); AddToggle(VisualsTab, "DISTANCE", _G.Visuals, "Dist"); AddToggle(VisualsTab, "WEAPON ESP", _G.Visuals, "Weapon"); AddToggle(VisualsTab, "HEALTH BAR", _G.Visuals, "HealthBar"); AddToggle(VisualsTab, "TOP LINE", _G.Visuals, "Tracers")
+        local cardStroke = Instance.new("UIStroke", card)
+        cardStroke.Color = BorderDark
+        cardStroke.Thickness = 1
 
-    -- [[ AUTOFARM ]]
-    local function CreateFarmBtn(txt, url) local b = Instance.new("TextButton", FarmTab); b.Size = UDim2.new(1,-5,0,40); b.Text = txt; b.BackgroundColor3 = Color3.fromRGB(60,60,200); b.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", b); b.MouseButton1Click:Connect(function() loadstring(game:HttpGet(url))() end) end
-    CreateFarmBtn("AUTOFARM 2K", "https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/2k"); CreateFarmBtn("AUTOFARM LEVEL", "https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/level"); CreateFarmBtn("AUTO-ROB ATM", "https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/atm")
+        local cLayout = Instance.new("UIListLayout", card)
+        cLayout.Padding = UDim.new(0, 6)
+        cLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
-    -- [[ MISC ]]
-    AddToggle(MiscTab, "SPEED HACK", _G.Misc, "Speed_On")
-    local sVal = Instance.new("TextBox", MiscTab); sVal.Size = UDim2.new(1,-5,0,32); sVal.Text = "16"; sVal.BackgroundColor3 = Color3.fromRGB(35,35,50); sVal.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", sVal); sVal.FocusLost:Connect(function() _G.Misc.SpeedVal = tonumber(sVal.Text) or 16 end)
-    AddToggle(MiscTab, "FULL BRIGHT", _G.Misc, "FullBright")
-    local DelT = Instance.new("TextButton", MiscTab); DelT.Size = UDim2.new(1,-5,0,35); DelT.Text = "CLICK DELETE TOOL"; DelT.BackgroundColor3 = Color3.fromRGB(60, 200, 60); Instance.new("UICorner", DelT); DelT.MouseButton1Click:Connect(function() local T = Instance.new("Tool"); T.Name = "Click Delete"; T.RequiresHandle = false; T.Parent = L_Plr.Backpack; T.Activated:Connect(function() if Mouse.Target then table.insert(DeletedObjects, {o = Mouse.Target, p = Mouse.Target.Parent}) Mouse.Target.Parent = nil end end) end)
-    local ResT = Instance.new("TextButton", MiscTab); ResT.Size = UDim2.new(1,-5,0,35); ResT.Text = "RESET MAP"; ResT.BackgroundColor3 = Color3.fromRGB(200, 50, 50); Instance.new("UICorner", ResT); ResT.MouseButton1Click:Connect(function() for _, v in pairs(DeletedObjects) do if v.o then v.o.Parent = v.p end end DeletedObjects = {} end)
+        local cPadding = Instance.new("UIPadding", card)
+        cPadding.PaddingTop = UDim.new(0, 10)
+        cPadding.PaddingBottom = UDim.new(0, 10)
+        cPadding.PaddingLeft = UDim.new(0, 10)
+        cPadding.PaddingRight = UDim.new(0, 10)
+
+        if titleText then
+            local head = Instance.new("TextLabel", card)
+            head.Size = UDim2.new(1, 0, 0, 18)
+            head.Text = titleText
+            head.TextColor3 = AccentBlue
+            head.Font = Enum.Font.GothamBold
+            head.TextSize = 11
+            head.TextXAlignment = Enum.TextXAlignment.Left
+            head.BackgroundTransparency = 1
+        end
+
+        return card
+    end
+
+    -- CREAR TOGGLE PÍLDORA
+    local function AddTogglePill(cardParent, labelText, targetTable, targetVar)
+        local row = Instance.new("Frame", cardParent)
+        row.Size = UDim2.new(1, 0, 0, 24)
+        row.BackgroundTransparency = 1
+
+        local lbl = Instance.new("TextLabel", row)
+        lbl.Size = UDim2.new(1, -50, 1, 0)
+        lbl.Position = UDim2.new(0, 0, 0, 0)
+        lbl.Text = labelText
+        lbl.TextColor3 = TextWhite
+        lbl.Font = Enum.Font.GothamMedium
+        lbl.TextSize = 11
+        lbl.TextXAlignment = Enum.TextXAlignment.Left
+        lbl.BackgroundTransparency = 1
+
+        local toggleBtn = Instance.new("TextButton", row)
+        toggleBtn.Size = UDim2.new(0, 42, 0, 20)
+        toggleBtn.Position = UDim2.new(1, -42, 0.5, -10)
+        toggleBtn.Font = Enum.Font.GothamBold
+        toggleBtn.TextSize = 9
+        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(1, 0)
+
+        local tStroke = Instance.new("UIStroke", toggleBtn)
+        tStroke.Thickness = 1
+
+        local function updateState()
+            local active = targetTable[targetVar]
+            if active then
+                toggleBtn.Text = "ON"
+                toggleBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                toggleBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+                tStroke.Color = Color3.fromRGB(255, 255, 255)
+            else
+                toggleBtn.Text = "OFF"
+                toggleBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+                toggleBtn.TextColor3 = Color3.fromRGB(120, 120, 120)
+                tStroke.Color = BorderDark
+            end
+        end
+
+        updateState()
+
+        toggleBtn.MouseButton1Click:Connect(function()
+            targetTable[targetVar] = not targetTable[targetVar]
+            updateState()
+        end)
+    end
+
+    -- CREAR TEXTBOX
+    local function AddTextBox(cardParent, labelText, defaultVal, callback)
+        local row = Instance.new("Frame", cardParent)
+        row.Size = UDim2.new(1, 0, 0, 28)
+        row.BackgroundTransparency = 1
+
+        local lbl = Instance.new("TextLabel", row)
+        lbl.Size = UDim2.new(0.6, 0, 1, 0)
+        lbl.Text = labelText
+        lbl.TextColor3 = TextWhite
+        lbl.Font = Enum.Font.GothamMedium
+        lbl.TextSize = 11
+        lbl.TextXAlignment = Enum.TextXAlignment.Left
+        lbl.BackgroundTransparency = 1
+
+        local box = Instance.new("TextBox", row)
+        box.Size = UDim2.new(0.38, 0, 0, 22)
+        box.Position = UDim2.new(0.62, 0, 0.5, -11)
+        box.Text = tostring(defaultVal)
+        box.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        box.TextColor3 = TextWhite
+        box.Font = Enum.Font.GothamBold
+        box.TextSize = 10
+        Instance.new("UICorner", box).CornerRadius = UDim.new(0, 5)
+
+        local bStroke = Instance.new("UIStroke", box)
+        bStroke.Color = BorderDark
+
+        box.FocusLost:Connect(function()
+            if callback then callback(box.Text) end
+        end)
+    end
+
+    -- CREAR BOTÓN
+    local function AddButton(cardParent, text, color, callback)
+        local btn = Instance.new("TextButton", cardParent)
+        btn.Size = UDim2.new(1, 0, 0, 28)
+        btn.Text = text
+        btn.BackgroundColor3 = color or AccentBlue
+        btn.TextColor3 = TextWhite
+        btn.Font = Enum.Font.GothamBold
+        btn.TextSize = 11
+        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+
+        btn.MouseButton1Click:Connect(function()
+            if callback then callback() end
+        end)
+    end
+
+    -- [[ INICIALIZAR PESTAÑAS ]]
+    local CombatPage = CreateTab("Combat", "⚔️")
+    local VisualsPage = CreateTab("Visuals", "👁️")
+    local FarmPage = CreateTab("Farm", "🚜")
+    local MiscPage = CreateTab("Misc", "⚙️")
+
+    CombatPage.Page.Visible = true
+    TabBtns["Combat"].TextColor3 = TextWhite
+    TabBtns["Combat"].BackgroundTransparency = 0
+    TabBtns["Combat"].BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+
+    -- [[ COMBAT TAB ]]
+    local cCard1 = CreateCard(CombatPage.Left, "Target Settings")
+    AddTextBox(cCard1, "Hitbox Size", _G.Hitbox_Size, function(val)
+        _G.Hitbox_Size = tonumber(val) or 15
+    end)
+    AddTogglePill(cCard1, "SILENT AIM", _G.Combat, "SilentAim")
+    AddTogglePill(cCard1, "TRIGGER BOT", _G.Combat, "TriggerBot")
+    AddTogglePill(cCard1, "RAPID FIRE", _G.Combat, "RapidFire")
+    AddTogglePill(cCard1, "NO RECOIL", _G.Combat, "NoRecoil")
+
+    local cCard2 = CreateCard(CombatPage.Right, "Hitbox Parts")
+    for k, _ in pairs(_G.Parts_Active) do
+        AddTogglePill(cCard2, "Expand " .. k, _G.Parts_Active, k)
+    end
+
+    -- [[ VISUALS TAB ]]
+    local vCard1 = CreateCard(VisualsPage.Left, "ESP Player Options")
+    AddTogglePill(vCard1, "Box ESP", _G.Visuals, "Box")
+    AddTogglePill(vCard1, "Show Names", _G.Visuals, "Names")
+    AddTogglePill(vCard1, "Show Distance", _G.Visuals, "Dist")
+
+    local vCard2 = CreateCard(VisualsPage.Right, "Extra Elements")
+    AddTogglePill(vCard2, "Weapon ESP", _G.Visuals, "Weapon")
+    AddTogglePill(vCard2, "Health Bar", _G.Visuals, "HealthBar")
+    AddTogglePill(vCard2, "Tracers (Top Line)", _G.Visuals, "Tracers")
+
+    -- [[ FARM TAB ]]
+    local fCard = CreateCard(FarmPage.Left, "Autofarm Scripts")
+    AddButton(fCard, "⚡ AUTOFARM 2K", AccentBlue, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/mateoyandi02-droid/Script/refs/heads/main/Paga%20farm"))()
+    end)
+    AddButton(fCard, "📈 AUTOFARM LEVEL", AccentBlue, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/level"))()
+    end)
+    AddButton(fCard, "🏧 AUTO-ROB ATM", AccentBlue, function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/atm"))()
+    end)
+
+    -- [[ MISC TAB ]]
+    local mCard1 = CreateCard(MiscPage.Left, "Movement & Light")
+    AddTogglePill(mCard1, "Speed Hack", _G.Misc, "Speed_On")
+    AddTextBox(mCard1, "Speed Value", _G.Misc.SpeedVal, function(val)
+        _G.Misc.SpeedVal = tonumber(val) or 16
+    end)
+    AddTogglePill(mCard1, "Full Bright", _G.Misc, "FullBright")
+
+    local mCard2 = CreateCard(MiscPage.Right, "Map Modification")
+    AddButton(mCard2, "🗑️ CLICK DELETE TOOL", Color3.fromRGB(40, 160, 80), function()
+        local T = Instance.new("Tool")
+        T.Name = "Click Delete"
+        T.RequiresHandle = false
+        T.Parent = L_Plr.Backpack
+        T.Activated:Connect(function()
+            if Mouse.Target then
+                table.insert(DeletedObjects, {o = Mouse.Target, p = Mouse.Target.Parent})
+                Mouse.Target.Parent = nil
+            end
+        end)
+    end)
+    AddButton(mCard2, "🔄 RESET MAP", Color3.fromRGB(180, 50, 50), function()
+        for _, v in pairs(DeletedObjects) do
+            if v.o then v.o.Parent = v.p end
+        end
+        DeletedObjects = {}
+    end)
 
     -- [[ ESP DRAWING LOGIC ]]
     local function CreateESP(plr)
         local Box = Drawing.new("Square"); Box.Thickness = 1; Box.Filled = false; Box.Color = Color3.new(1,1,1); Box.Visible = false
-        local Name = Drawing.new("Text"); Name.Size = 13; Name.Center = true; Name.Outline = true; Name.Color = Color3.new(1,1,1); Name.Visible = false
-        local Dist = Drawing.new("Text"); Dist.Size = 13; Dist.Center = true; Dist.Outline = true; Dist.Color = Color3.new(1,1,1); Dist.Visible = false
-        local Weap = Drawing.new("Text"); Weap.Size = 13; Weap.Center = true; Weap.Outline = true; Weap.Color = Color3.new(1, 1, 1); Weap.Visible = false
+        local Name = Drawing.new("Text"); Name.Size = 12; Name.Center = true; Name.Outline = true; Name.Color = Color3.new(1,1,1); Name.Visible = false
+        local Dist = Drawing.new("Text"); Dist.Size = 12; Dist.Center = true; Dist.Outline = true; Dist.Color = Color3.new(1,1,1); Dist.Visible = false
+        local Weap = Drawing.new("Text"); Weap.Size = 12; Weap.Center = true; Weap.Outline = true; Weap.Color = Color3.new(1, 1, 1); Weap.Visible = false
         local Line = Drawing.new("Line"); Line.Thickness = 1; Line.Color = Color3.new(1,1,1); Line.Visible = false
         local HealthBar = Drawing.new("Square"); HealthBar.Thickness = 1; HealthBar.Filled = true; HealthBar.Visible = false
 
@@ -125,9 +531,9 @@ local function ExecuteHub()
                     Box.Visible = _G.Visuals.Box; Box.Size = BoxSize; Box.Position = BoxPos
                     Name.Visible = _G.Visuals.Names; Name.Text = plr.Name; Name.Position = Vector2.new(Pos.X, BoxPos.Y - 15)
                     local d = math.floor((L_Plr.Character.HumanoidRootPart.Position - HRP.Position).Magnitude)
-                    Dist.Visible = _G.Visuals.Dist; Dist.Text = "["..d.."m]"; Dist.Position = Vector2.new(Pos.X, BoxPos.Y + BoxSize.Y + 5)
+                    Dist.Visible = _G.Visuals.Dist; Dist.Text = "["..d.."m]"; Dist.Position = Vector2.new(Pos.X, BoxPos.Y + BoxSize.Y + 3)
                     local tool = plr.Character:FindFirstChildOfClass("Tool")
-                    Weap.Visible = _G.Visuals.Weapon; Weap.Text = tool and tool.Name or "Hands"; Weap.Position = Vector2.new(Pos.X, BoxPos.Y + BoxSize.Y + 18)
+                    Weap.Visible = _G.Visuals.Weapon; Weap.Text = tool and tool.Name or "Hands"; Weap.Position = Vector2.new(Pos.X, BoxPos.Y + BoxSize.Y + 15)
                     Line.Visible = _G.Visuals.Tracers; Line.From = Vector2.new(Camera.ViewportSize.X / 2, 0); Line.To = Vector2.new(Pos.X, BoxPos.Y)
                     HealthBar.Visible = _G.Visuals.HealthBar; HealthBar.Size = Vector2.new(2, (Hum.Health / Hum.MaxHealth) * BoxSize.Y); HealthBar.Position = Vector2.new(BoxPos.X - 5, BoxPos.Y + (BoxSize.Y - HealthBar.Size.Y)); HealthBar.Color = Color3.fromHSV(Hum.Health/Hum.MaxHealth * 0.3, 1, 1)
                 else
@@ -143,7 +549,9 @@ local function ExecuteHub()
 
     -- [[ CORE LOGIC: HITBOX INVISIBLE + ANTI-FREEZE ]]
     RunService.Heartbeat:Connect(function()
-        if _G.Misc.Speed_On and L_Plr.Character and L_Plr.Character:FindFirstChild("Humanoid") then L_Plr.Character.Humanoid.WalkSpeed = _G.Misc.SpeedVal end
+        if _G.Misc.Speed_On and L_Plr.Character and L_Plr.Character:FindFirstChild("Humanoid") then 
+            L_Plr.Character.Humanoid.WalkSpeed = _G.Misc.SpeedVal 
+        end
         for _, p in pairs(Players:GetPlayers()) do
             if p ~= L_Plr and p.Character then
                 for n, act in pairs(_G.Parts_Active) do
@@ -155,7 +563,11 @@ local function ExecuteHub()
                             part.Massless = true
                             part.Transparency = 1 
                         else 
-                            if part.Transparency == 1 then part.Size = (n == "Head" and Vector3.new(2,1,1) or Vector3.new(2,2,1)); part.Transparency = 0; part.CanCollide = true end 
+                            if part.Transparency == 1 then 
+                                part.Size = (n == "Head" and Vector3.new(2,1,1) or Vector3.new(2,2,1))
+                                part.Transparency = 0
+                                part.CanCollide = true 
+                            end 
                         end
                     end
                 end
@@ -164,11 +576,50 @@ local function ExecuteHub()
     end)
 
     -- [[ KEY SYSTEM ]]
-    local KeyFrame = Instance.new("Frame", ScreenGui); KeyFrame.Size = UDim2.new(0, 320, 0, 220); KeyFrame.Position = UDim2.new(0.5,-160,0.5,-110); KeyFrame.BackgroundColor3 = Color3.fromRGB(15,15,20); Instance.new("UICorner", KeyFrame); Instance.new("UIStroke", KeyFrame).Color = Color3.fromRGB(60, 60, 220)
-    local KeyT = Instance.new("TextLabel", KeyFrame); KeyT.Size = UDim2.new(1,0,0,60); KeyT.Text = "ACUSADO NINJA HUB\nIngresa la contra"; KeyT.TextColor3 = Color3.new(1,1,1); KeyT.Font = Enum.Font.GothamBold; KeyT.TextSize = 16; KeyT.BackgroundTransparency = 1
-    local KeyInp = Instance.new("TextBox", KeyFrame); KeyInp.Size = UDim2.new(0,250,0,45); KeyInp.Position = UDim2.new(0.5,-125,0,80); KeyInp.PlaceholderText = "CONTRASEÑA"; KeyInp.BackgroundColor3 = Color3.fromRGB(25,25,35); KeyInp.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", KeyInp)
-    local KeyBtn = Instance.new("TextButton", KeyFrame); KeyBtn.Size = UDim2.new(0,160,0,45); KeyBtn.Position = UDim2.new(0.5,-80,0,145); KeyBtn.Text = "ENTRAR"; KeyBtn.BackgroundColor3 = Color3.fromRGB(60,60,200); KeyBtn.TextColor3 = Color3.new(1,1,1); Instance.new("UICorner", KeyBtn)
-    KeyBtn.MouseButton1Click:Connect(function() if KeyInp.Text == CLAVE_CORRECTA then KeyFrame:Destroy(); MainFrame.Visible = true; Tabs.Combat.Visible = true end end)
+    local KeyFrame = Instance.new("Frame", ScreenGui)
+    KeyFrame.Size = UDim2.new(0, 300, 0, 200)
+    KeyFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+    KeyFrame.BackgroundColor3 = PureBlack
+    Instance.new("UICorner", KeyFrame).CornerRadius = UDim.new(0, 10)
+    local KeyStroke = Instance.new("UIStroke", KeyFrame)
+    KeyStroke.Color = AccentBlue
+
+    local KeyT = Instance.new("TextLabel", KeyFrame)
+    KeyT.Size = UDim2.new(1, 0, 0, 50)
+    KeyT.Text = "ACUSADO NINJA HUB\nIngresa la contraseña"
+    KeyT.TextColor3 = TextWhite
+    KeyT.Font = Enum.Font.GothamBold
+    KeyT.TextSize = 14
+    KeyT.BackgroundTransparency = 1
+
+    local KeyInp = Instance.new("TextBox", KeyFrame)
+    KeyInp.Size = UDim2.new(0, 230, 0, 40)
+    KeyInp.Position = UDim2.new(0.5, -115, 0, 70)
+    KeyInp.PlaceholderText = "CONTRASEÑA"
+    KeyInp.BackgroundColor3 = DarkCard
+    KeyInp.TextColor3 = TextWhite
+    KeyInp.Font = Enum.Font.GothamBold
+    KeyInp.TextSize = 12
+    Instance.new("UICorner", KeyInp).CornerRadius = UDim.new(0, 6)
+    local KeyInpStroke = Instance.new("UIStroke", KeyInp)
+    KeyInpStroke.Color = BorderDark
+
+    local KeyBtn = Instance.new("TextButton", KeyFrame)
+    KeyBtn.Size = UDim2.new(0, 150, 0, 40)
+    KeyBtn.Position = UDim2.new(0.5, -75, 0, 130)
+    KeyBtn.Text = "ENTRAR"
+    KeyBtn.BackgroundColor3 = AccentBlue
+    KeyBtn.TextColor3 = TextWhite
+    KeyBtn.Font = Enum.Font.GothamBold
+    KeyBtn.TextSize = 12
+    Instance.new("UICorner", KeyBtn).CornerRadius = UDim.new(0, 6)
+
+    KeyBtn.MouseButton1Click:Connect(function() 
+        if KeyInp.Text == CLAVE_CORRECTA then 
+            KeyFrame:Destroy()
+            MainFrame.Visible = true 
+        end 
+    end)
 end
 
 -- Ejecutar el Hub de forma segura
