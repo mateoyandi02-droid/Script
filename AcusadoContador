@@ -1,0 +1,160 @@
+-- // ACUSADO COUNTER - BLANCO Y NEGRO //
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- Evitar duplicados de la interfaz
+local targetParent = player:FindFirstChild("PlayerGui") or game:GetService("CoreGui")
+if targetParent:FindFirstChild("MoneyCounterGUI") then
+    targetParent.MoneyCounterGUI:Destroy()
+end
+
+-- ScreenGui Principal
+local counterGui = Instance.new("ScreenGui")
+counterGui.Name = "MoneyCounterGUI"
+counterGui.ResetOnSpawn = false
+counterGui.Parent = targetParent
+
+-- Frame Principal (Tarjeta Compacta)
+local mainFrame = Instance.new("Frame", counterGui)
+mainFrame.Size = UDim2.new(0, 220, 0, 230)
+mainFrame.Position = UDim2.new(0.85, -110, 0.3, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Fondo Negro Puro
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
+
+local mainStroke = Instance.new("UIStroke", mainFrame)
+mainStroke.Color = Color3.fromRGB(255, 255, 255) -- Borde Blanco
+mainStroke.Thickness = 1.5
+
+-- Header: Título y Botón Cerrar
+local title = Instance.new("TextLabel", mainFrame)
+title.Size = UDim2.new(0, 160, 0, 35)
+title.Position = UDim2.new(0, 12, 0, 5)
+title.Text = "ACUSADO COUNTER"
+title.TextColor3 = Color3.fromRGB(255, 255, 255) -- Texto Blanco
+title.Font = Enum.Font.GothamBold
+title.TextSize = 13
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+local closeBtn = Instance.new("TextButton", mainFrame)
+closeBtn.Size = UDim2.new(0, 25, 0, 25)
+closeBtn.Position = UDim2.new(1, -30, 0, 8)
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 12
+closeBtn.BackgroundTransparency = 1
+
+closeBtn.MouseButton1Click:Connect(function()
+    counterGui:Destroy()
+end)
+
+-- Separador Superior
+local line1 = Instance.new("Frame", mainFrame)
+line1.Size = UDim2.new(1, -24, 0, 1)
+line1.Position = UDim2.new(0, 12, 0, 40)
+line1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+line1.BorderSizePixel = 0
+
+-- Función creadora de filas
+local function crearFila(nombre, posY)
+    local lblName = Instance.new("TextLabel", mainFrame)
+    lblName.Size = UDim2.new(0, 120, 0, 25)
+    lblName.Position = UDim2.new(0, 12, 0, posY)
+    lblName.Text = nombre
+    lblName.TextColor3 = Color3.fromRGB(200, 200, 200)
+    lblName.Font = Enum.Font.Gotham
+    lblName.TextSize = 13
+    lblName.BackgroundTransparency = 1
+    lblName.TextXAlignment = Enum.TextXAlignment.Left
+
+    local lblVal = Instance.new("TextLabel", mainFrame)
+    lblVal.Size = UDim2.new(0, 60, 0, 25)
+    lblVal.Position = UDim2.new(1, -72, 0, posY)
+    lblVal.Text = "0"
+    lblVal.TextColor3 = Color3.fromRGB(255, 255, 255)
+    lblVal.Font = Enum.Font.GothamBold
+    lblVal.TextSize = 14
+    lblVal.BackgroundTransparency = 1
+    lblVal.TextXAlignment = Enum.TextXAlignment.Right
+
+    return lblVal
+end
+
+local valSmall = crearFila("Small Bag", 55)
+local valMedium = crearFila("Medium Bag", 95)
+local valLarge = crearFila("Large Bag", 135)
+
+-- Separador Inferior
+local line2 = Instance.new("Frame", mainFrame)
+line2.Size = UDim2.new(1, -24, 0, 1)
+line2.Position = UDim2.new(0, 12, 0, 175)
+line2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+line2.BorderSizePixel = 0
+
+-- Fila del Total
+local lblTotalTitle = Instance.new("TextLabel", mainFrame)
+lblTotalTitle.Size = UDim2.new(0, 80, 0, 30)
+lblTotalTitle.Position = UDim2.new(0, 12, 0, 185)
+lblTotalTitle.Text = "TOTAL"
+lblTotalTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+lblTotalTitle.Font = Enum.Font.GothamBold
+lblTotalTitle.TextSize = 15
+lblTotalTitle.BackgroundTransparency = 1
+lblTotalTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+local lblTotalVal = Instance.new("TextLabel", mainFrame)
+lblTotalVal.Size = UDim2.new(0, 100, 0, 30)
+lblTotalVal.Position = UDim2.new(1, -112, 0, 185)
+lblTotalVal.Text = "$0"
+lblTotalVal.TextColor3 = Color3.fromRGB(255, 255, 255)
+lblTotalVal.Font = Enum.Font.GothamBold
+lblTotalVal.TextSize = 16
+lblTotalVal.BackgroundTransparency = 1
+lblTotalVal.TextXAlignment = Enum.TextXAlignment.Right
+
+-- Precios aproximados para cálculo del total
+local PRECIO_SMALL = 1470
+local PRECIO_MEDIUM = 2940
+local PRECIO_LARGE = 5880
+
+-- Loop de actualización automática
+task.spawn(function()
+    while counterGui.Parent do
+        pcall(function()
+            local smallCount, mediumCount, largeCount = 0, 0, 0
+            
+            local inv = player.Backpack:GetChildren()
+            if player.Character then
+                for _, child in pairs(player.Character:GetChildren()) do
+                    if child:IsA("Tool") then
+                        table.insert(inv, child)
+                    end
+                end
+            end
+
+            for _, item in pairs(inv) do
+                local name = item.Name
+                if name:find("Small") then
+                    smallCount = smallCount + 1
+                elseif name:find("Medium") then
+                    mediumCount = mediumCount + 1
+                elseif name:find("Large") then
+                    largeCount = largeCount + 1
+                end
+            end
+
+            valSmall.Text = tostring(smallCount)
+            valMedium.Text = tostring(mediumCount)
+            valLarge.Text = tostring(largeCount)
+
+            local totalMoney = (smallCount * PRECIO_SMALL) + (mediumCount * PRECIO_MEDIUM) + (largeCount * PRECIO_LARGE)
+            lblTotalVal.Text = "$" .. tostring(totalMoney)
+        end)
+        task.wait(0.5)
+    end
+end)
