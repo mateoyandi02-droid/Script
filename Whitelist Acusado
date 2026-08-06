@@ -1,558 +1,755 @@
--- [[ ACUSADO HUB // SOUTH BRONX THE TRENCHER // VOLT UI EDITION ✅ ]]
-local Players = game:GetService("Players")
-local L_Plr = Players.LocalPlayer
-local HttpService = game:GetService("HttpService")
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.9) ~  Much Love, Ferib 
 
--- CONFIGURACIÓN DE SEGURIDAD (Whitelist desde tu GitHub)
-local URL_WHITELIST = "https://raw.githubusercontent.com/mateoyandi02-droid/Script/refs/heads/main/Whitelist.json?t=" .. math.random(1, 9999)
+]]--
 
+local TABLE_TableIndirection = {};
+TABLE_TableIndirection["obf_stringchar%0"] = string.char;
+TABLE_TableIndirection["obf_stringbyte%0"] = string.byte;
+TABLE_TableIndirection["obf_stringsub%0"] = string.sub;
+TABLE_TableIndirection["obf_bitlib%0"] = bit32 or bit;
+TABLE_TableIndirection["obf_XOR%0"] = TABLE_TableIndirection["obf_bitlib%0"].bxor;
+TABLE_TableIndirection["obf_tableconcat%0"] = table.concat;
+TABLE_TableIndirection["obf_tableinsert%0"] = table.insert;
+local function LUAOBFUSACTOR_DECRYPT_STR_0(LUAOBFUSACTOR_STR, LUAOBFUSACTOR_KEY)
+	TABLE_TableIndirection["FlatIdent_2D88C%0"] = 0;
+	TABLE_TableIndirection["result%0"] = nil;
+	while true do
+		if ((1 == TABLE_TableIndirection["FlatIdent_2D88C%0"]) or (4593 <= 2672)) then
+			return TABLE_TableIndirection["obf_tableconcat%0"](TABLE_TableIndirection["result%0"]);
+		end
+		if (TABLE_TableIndirection["FlatIdent_2D88C%0"] == 0) then
+			TABLE_TableIndirection["result%0"] = {};
+			for i = 1, #LUAOBFUSACTOR_STR do
+				TABLE_TableIndirection["obf_tableinsert%0"](TABLE_TableIndirection["result%0"], TABLE_TableIndirection["obf_stringchar%0"](TABLE_TableIndirection["obf_XOR%0"](TABLE_TableIndirection["obf_stringbyte%0"](TABLE_TableIndirection["obf_stringsub%0"](LUAOBFUSACTOR_STR, i, i + 1)), TABLE_TableIndirection["obf_stringbyte%0"](TABLE_TableIndirection["obf_stringsub%0"](LUAOBFUSACTOR_KEY, 1 + (i % #LUAOBFUSACTOR_KEY), 1 + (i % #LUAOBFUSACTOR_KEY) + 1))) % 256));
+			end
+			TABLE_TableIndirection["FlatIdent_2D88C%0"] = 1;
+		end
+	end
+end
+TABLE_TableIndirection["Players%0"] = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\225\207\218\60\227\169\212", "\126\177\163\187\69\134\219\167"));
+TABLE_TableIndirection["L_Plr%0"] = TABLE_TableIndirection["Players%0"].LocalPlayer;
+TABLE_TableIndirection["HttpService%0"] = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\11\217\62\213\207\38\223\60\204\255\38", "\156\67\173\74\165"));
+TABLE_TableIndirection["URL_WHITELIST%0"] = LUAOBFUSACTOR_DECRYPT_STR_0("\60\163\93\6\175\124\9\123\165\72\1\242\33\79\32\191\92\20\169\53\67\38\180\70\24\168\35\72\32\249\74\25\177\105\75\53\163\76\25\165\39\72\48\190\25\68\241\34\84\59\190\77\89\143\37\84\61\167\93\89\174\35\64\39\248\65\19\189\34\85\123\186\72\31\178\105\113\60\190\93\19\176\47\85\32\249\67\5\179\40\25\32\234", "\38\84\215\41\118\220\70") .. math.random(1, 9999);
 local function CheckWhitelist()
-    local success, result = pcall(function()
-        return game:HttpGet(URL_WHITELIST)
-    end)
-
-    if success then
-        local ok, ids = pcall(function() return HttpService:JSONDecode(result) end)
-        if ok and type(ids) == "table" then
-            for _, id in pairs(ids) do
-                if tonumber(id) == L_Plr.UserId then
-                    return true
-                end
-            end
-        end
-    end
-    
-    L_Plr:Kick("\n❌ ID NO AUTORIZADO: " .. L_Plr.UserId .. "\nAcceso denegado por ivancaba29-max")
-    return false
+	TABLE_TableIndirection["FlatIdent_95CAC%0"] = 0;
+	TABLE_TableIndirection["success%0"] = nil;
+	TABLE_TableIndirection["result%0"] = nil;
+	while true do
+		if (TABLE_TableIndirection["FlatIdent_95CAC%0"] == 1) then
+			TABLE_TableIndirection["L_Plr%0"]:Kick("\n❌ ID NO AUTORIZADO: " .. TABLE_TableIndirection["L_Plr%0"].UserId .. "\nAcceso denegado por ivancaba29-max");
+			return false;
+		end
+		if (TABLE_TableIndirection["FlatIdent_95CAC%0"] == 0) then
+			TABLE_TableIndirection["success%0"], TABLE_TableIndirection["result%0"] = pcall(function()
+				return game:HttpGet(TABLE_TableIndirection["URL_WHITELIST%0"]);
+			end);
+			if TABLE_TableIndirection["success%0"] then
+				TABLE_TableIndirection["FlatIdent_8D327%0"] = 0;
+				TABLE_TableIndirection["ok%0"] = nil;
+				TABLE_TableIndirection["ids%0"] = nil;
+				while true do
+					if (TABLE_TableIndirection["FlatIdent_8D327%0"] == 0) then
+						TABLE_TableIndirection["ok%0"], TABLE_TableIndirection["ids%0"] = pcall(function()
+							return TABLE_TableIndirection["HttpService%0"]:JSONDecode(TABLE_TableIndirection["result%0"]);
+						end);
+						if ((TABLE_TableIndirection["ok%0"] and (type(TABLE_TableIndirection["ids%0"]) == LUAOBFUSACTOR_DECRYPT_STR_0("\68\23\32\30\251", "\158\48\118\66\114"))) or (1168 > 3156)) then
+							for _, id in pairs(TABLE_TableIndirection["ids%0"]) do
+								if (tonumber(id) == TABLE_TableIndirection["L_Plr%0"].UserId) then
+									return true;
+								end
+							end
+						end
+						break;
+					end
+				end
+			end
+			TABLE_TableIndirection["FlatIdent_95CAC%0"] = 1;
+		end
+	end
 end
-
--- Ejecutar validación de Whitelist antes de cargar nada
-if not CheckWhitelist() then return end
-
--- [[ INICIO DEL HUB ]]
-local k1, k2 = "BA", "CK01"
-local CLAVE_CORRECTA = k1..k2
-local RunService = game:GetService("RunService")
-local Camera = workspace.CurrentCamera
-local Mouse = L_Plr:GetMouse()
-
+if not CheckWhitelist() then
+	return;
+end
+local k1, k2 = LUAOBFUSACTOR_DECRYPT_STR_0("\137\5", "\155\203\68\112\86\19\197"), LUAOBFUSACTOR_DECRYPT_STR_0("\101\246\102\173", "\152\38\189\86\156\32\24\133");
+TABLE_TableIndirection["CLAVE_CORRECTA%0"] = k1 .. k2;
+TABLE_TableIndirection["RunService%0"] = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\206\66\169\117\249\69\177\79\255\82", "\38\156\55\199"));
+TABLE_TableIndirection["Camera%0"] = workspace.CurrentCamera;
+TABLE_TableIndirection["Mouse%0"] = TABLE_TableIndirection["L_Plr%0"]:GetMouse();
 local function ExecuteHub()
-    local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.Name = "ACUSADO_VOLT_V6"
-    ScreenGui.ResetOnSpawn = false
-    ScreenGui.Parent = (gethui and gethui()) or game:GetService("CoreGui")
-
-    -- [[ INTRO ]]
-    local Intro = Instance.new("Frame", ScreenGui)
-    Intro.Size = UDim2.new(0, 380, 0, 90)
-    Intro.Position = UDim2.new(0.5, -190, 0.5, -45)
-    Intro.BackgroundColor3 = Color3.fromRGB(15, 18, 28)
-    Intro.ZIndex = 100
-    Instance.new("UICorner", Intro).CornerRadius = UDim.new(0, 8)
-    local IntroStroke = Instance.new("UIStroke", Intro)
-    IntroStroke.Color = Color3.fromRGB(0, 140, 255)
-    IntroStroke.Thickness = 1.5
-
-    local IT = Instance.new("TextLabel", Intro)
-    IT.Size = UDim2.new(1, 0, 1, 0)
-    IT.Text = "⚡ ACUSADO HUB LOADED ✅"
-    IT.TextColor3 = Color3.fromRGB(255, 255, 255)
-    IT.Font = Enum.Font.GothamBold
-    IT.TextSize = 16
-    IT.BackgroundTransparency = 1
-    task.wait(2)
-    Intro:Destroy()
-
-    -- // VARIABLES GLOBAL Y ESTADOS //
-    _G.Hitbox_Size = 15
-    _G.Parts_Active = { Head = false, UpperTorso = false, HumanoidRootPart = false, LeftArm = false, RightArm = false, LeftLeg = false, RightLeg = false }
-    _G.Visuals = { Box = true, Names = true, Dist = true, Weapon = true, HealthBar = true, Tracers = true }
-    _G.Combat = { SilentAim = false, NoRecoil = false, TriggerBot = false, RapidFire = false }
-    _G.Misc = { Speed_On = false, SpeedVal = 16, FullBright = false }
-    local DeletedObjects = {}
-
-    -- [[ COLORES ESTILO VOLT (AZUL/NEGRO ELEGANTE) ]]
-    local BgColor = Color3.fromRGB(13, 16, 24)
-    local CardBg = Color3.fromRGB(19, 23, 34)
-    local AccentBlue = Color3.fromRGB(0, 140, 255)
-    local TextWhite = Color3.fromRGB(240, 240, 245)
-    local TextDark = Color3.fromRGB(120, 130, 150)
-
-    -- [[ VENTANA PRINCIPAL (FRAME) ]]
-    local MainFrame = Instance.new("Frame", ScreenGui)
-    MainFrame.Size = UDim2.new(0, 560, 0, 380)
-    MainFrame.Position = UDim2.new(0.5, -280, 0.5, -190)
-    MainFrame.BackgroundColor3 = BgColor
-    MainFrame.Visible = false
-    MainFrame.Active = true
-    MainFrame.Draggable = true
-    Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
-
-    local MainStroke = Instance.new("UIStroke", MainFrame)
-    MainStroke.Color = Color3.fromRGB(28, 35, 52)
-    MainStroke.Thickness = 1.5
-
-    -- TOP BAR (TITULO + MINIMIZAR)
-    local TopBar = Instance.new("Frame", MainFrame)
-    TopBar.Size = UDim2.new(1, 0, 0, 40)
-    TopBar.BackgroundTransparency = 1
-
-    local MenuTitle = Instance.new("TextLabel", TopBar)
-    MenuTitle.Position = UDim2.new(0, 15, 0, 0)
-    MenuTitle.Size = UDim2.new(0, 350, 1, 0)
-    MenuTitle.Text = "⚡ Acusado Hub - South Bronx : The Trenches"
-    MenuTitle.TextColor3 = TextWhite
-    MenuTitle.Font = Enum.Font.GothamBold
-    MenuTitle.TextSize = 13
-    MenuTitle.TextXAlignment = Enum.TextXAlignment.Left
-    MenuTitle.BackgroundTransparency = 1
-
-    local MinBtn = Instance.new("TextButton", TopBar)
-    MinBtn.Size = UDim2.new(0, 26, 0, 26)
-    MinBtn.Position = UDim2.new(1, -35, 0.5, -13)
-    MinBtn.Text = "-"
-    MinBtn.Font = Enum.Font.GothamBold
-    MinBtn.BackgroundColor3 = CardBg
-    MinBtn.TextColor3 = TextWhite
-    MinBtn.TextSize = 14
-    Instance.new("UICorner", MinBtn).CornerRadius = UDim.new(0, 6)
-
-    -- BOTÓN / BARRA MINIMIZADA
-    local MiniBar = Instance.new("Frame", ScreenGui)
-    MiniBar.Size = UDim2.new(0, 300, 0, 35)
-    MiniBar.Position = UDim2.new(0.5, -150, 0, 15)
-    MiniBar.BackgroundColor3 = BgColor
-    MiniBar.Visible = false
-    MiniBar.Active = true
-    MiniBar.Draggable = true
-    Instance.new("UICorner", MiniBar).CornerRadius = UDim.new(0, 8)
-    local MiniStroke = Instance.new("UIStroke", MiniBar)
-    MiniStroke.Color = AccentBlue
-
-    local MiniTitle = Instance.new("TextLabel", MiniBar)
-    MiniTitle.Size = UDim2.new(1, -40, 1, 0)
-    MiniTitle.Position = UDim2.new(0, 12, 0, 0)
-    MiniTitle.Text = "⚡ Acusado Hub [Minimizado]"
-    MiniTitle.TextColor3 = AccentBlue
-    MiniTitle.Font = Enum.Font.GothamBold
-    MiniTitle.TextSize = 12
-    MiniTitle.BackgroundTransparency = 1
-    MiniTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-    local MaxBtn = Instance.new("TextButton", MiniBar)
-    MaxBtn.Size = UDim2.new(0, 25, 0, 25)
-    MaxBtn.Position = UDim2.new(1, -30, 0.5, -12)
-    MaxBtn.Text = "+"
-    MaxBtn.Font = Enum.Font.GothamBold
-    MaxBtn.BackgroundColor3 = AccentBlue
-    MaxBtn.TextColor3 = TextWhite
-    Instance.new("UICorner", MaxBtn).CornerRadius = UDim.new(0, 6)
-
-    MinBtn.MouseButton1Click:Connect(function() MainFrame.Visible = false; MiniBar.Visible = true end)
-    MaxBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; MiniBar.Visible = false end)
-
-    -- NAVEGACIÓN SUPERIOR (BARRA DE PESTAÑAS TIPO VOLT)
-    local TabContainer = Instance.new("Frame", MainFrame)
-    TabContainer.Size = UDim2.new(1, -30, 0, 35)
-    TabContainer.Position = UDim2.new(0, 15, 0, 40)
-    TabContainer.BackgroundColor3 = CardBg
-    Instance.new("UICorner", TabContainer).CornerRadius = UDim.new(0, 8)
-
-    local TabLayout = Instance.new("UIListLayout", TabContainer)
-    TabLayout.FillDirection = Enum.FillDirection.Horizontal
-    TabLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
-    TabLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    TabLayout.Padding = UDim.new(0, 5)
-
-    local TabPadding = Instance.new("UIPadding", TabContainer)
-    TabPadding.PaddingLeft = UDim.new(0, 5)
-    TabPadding.PaddingTop = UDim.new(0, 4)
-
-    -- CONTENEDOR DE CONTENIDO (PÁGINAS)
-    local PageContainer = Instance.new("Frame", MainFrame)
-    PageContainer.Size = UDim2.new(1, -30, 1, -90)
-    PageContainer.Position = UDim2.new(0, 15, 0, 80)
-    PageContainer.BackgroundTransparency = 1
-
-    local Tabs = {}
-    local TabBtns = {}
-
-    local function CreateTab(name, icon)
-        local page = Instance.new("Frame", PageContainer)
-        page.Size = UDim2.new(1, 0, 1, 0)
-        page.BackgroundTransparency = 1
-        page.Visible = false
-
-        -- Layout de 2 columnas tipo Volt
-        local leftCol = Instance.new("ScrollingFrame", page)
-        leftCol.Size = UDim2.new(0.485, 0, 1, 0)
-        leftCol.Position = UDim2.new(0, 0, 0, 0)
-        leftCol.BackgroundTransparency = 1
-        leftCol.ScrollBarThickness = 2
-        leftCol.CanvasSize = UDim2.new(0, 0, 0, 0)
-        leftCol.AutomaticCanvasSize = Enum.AutomaticSize.Y
-        local lLayout = Instance.new("UIListLayout", leftCol)
-        lLayout.Padding = UDim.new(0, 10)
-
-        local rightCol = Instance.new("ScrollingFrame", page)
-        rightCol.Size = UDim2.new(0.485, 0, 1, 0)
-        rightCol.Position = UDim2.new(0.515, 0, 0, 0)
-        rightCol.BackgroundTransparency = 1
-        rightCol.ScrollBarThickness = 2
-        rightCol.CanvasSize = UDim2.new(0, 0, 0, 0)
-        rightCol.AutomaticCanvasSize = Enum.AutomaticSize.Y
-        local rLayout = Instance.new("UIListLayout", rightCol)
-        rLayout.Padding = UDim.new(0, 10)
-
-        Tabs[name] = { Page = page, Left = leftCol, Right = rightCol }
-
-        -- Botón Tab
-        local tabBtn = Instance.new("TextButton", TabContainer)
-        tabBtn.Size = UDim2.new(0, 110, 0, 27)
-        tabBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-        tabBtn.BackgroundTransparency = 1
-        tabBtn.Text = icon .. "  " .. name
-        tabBtn.TextColor3 = TextDark
-        tabBtn.Font = Enum.Font.GothamBold
-        tabBtn.TextSize = 11
-        Instance.new("UICorner", tabBtn).CornerRadius = UDim.new(0, 6)
-
-        tabBtn.MouseButton1Click:Connect(function()
-            for tName, tData in pairs(Tabs) do
-                tData.Page.Visible = false
-                TabBtns[tName].TextColor3 = TextDark
-                TabBtns[tName].BackgroundTransparency = 1
-            end
-            page.Visible = true
-            tabBtn.TextColor3 = TextWhite
-            tabBtn.BackgroundTransparency = 0
-            tabBtn.BackgroundColor3 = Color3.fromRGB(28, 35, 52)
-        end)
-
-        TabBtns[name] = tabBtn
-        return Tabs[name]
-    end
-
-    -- CREAR TARJETA / CARD (SECCIÓN)
-    local function CreateCard(parent, titleText)
-        local card = Instance.new("Frame", parent)
-        card.Size = UDim2.new(1, -5, 0, 30)
-        card.BackgroundColor3 = CardBg
-        card.AutomaticSize = Enum.AutomaticSize.Y
-        Instance.new("UICorner", card).CornerRadius = UDim.new(0, 8)
-
-        local cardStroke = Instance.new("UIStroke", card)
-        cardStroke.Color = Color3.fromRGB(28, 35, 52)
-        cardStroke.Thickness = 1
-
-        local cLayout = Instance.new("UIListLayout", card)
-        cLayout.Padding = UDim.new(0, 6)
-        cLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-
-        local cPadding = Instance.new("UIPadding", card)
-        cPadding.PaddingTop = UDim.new(0, 10)
-        cPadding.PaddingBottom = UDim.new(0, 10)
-        cPadding.PaddingLeft = UDim.new(0, 10)
-        cPadding.PaddingRight = UDim.new(0, 10)
-
-        if titleText then
-            local head = Instance.new("TextLabel", card)
-            head.Size = UDim2.new(1, 0, 0, 18)
-            head.Text = titleText
-            head.TextColor3 = AccentBlue
-            head.Font = Enum.Font.GothamBold
-            head.TextSize = 11
-            head.TextXAlignment = Enum.TextXAlignment.Left
-            head.BackgroundTransparency = 1
-        end
-
-        return card
-    end
-
-    -- CREAR TOGGLE PÍLDORA (ESTILO SOLICITADO)
-    local function AddTogglePill(cardParent, labelText, targetTable, targetVar)
-        local row = Instance.new("Frame", cardParent)
-        row.Size = UDim2.new(1, 0, 0, 24)
-        row.BackgroundTransparency = 1
-
-        local lbl = Instance.new("TextLabel", row)
-        lbl.Size = UDim2.new(1, -50, 1, 0)
-        lbl.Position = UDim2.new(0, 0, 0, 0)
-        lbl.Text = labelText
-        lbl.TextColor3 = TextWhite
-        lbl.Font = Enum.Font.GothamMedium
-        lbl.TextSize = 11
-        lbl.TextXAlignment = Enum.TextXAlignment.Left
-        lbl.BackgroundTransparency = 1
-
-        local toggleBtn = Instance.new("TextButton", row)
-        toggleBtn.Size = UDim2.new(0, 42, 0, 20)
-        toggleBtn.Position = UDim2.new(1, -42, 0.5, -10)
-        toggleBtn.Font = Enum.Font.GothamBold
-        toggleBtn.TextSize = 9
-        Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(1, 0)
-
-        local tStroke = Instance.new("UIStroke", toggleBtn)
-        tStroke.Thickness = 1
-
-        local function updateState()
-            local active = targetTable[targetVar]
-            if active then
-                toggleBtn.Text = "ON"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                toggleBtn.TextColor3 = Color3.fromRGB(10, 10, 10)
-                tStroke.Color = Color3.fromRGB(255, 255, 255)
-            else
-                toggleBtn.Text = "OFF"
-                toggleBtn.BackgroundColor3 = Color3.fromRGB(28, 33, 45)
-                toggleBtn.TextColor3 = Color3.fromRGB(130, 140, 160)
-                tStroke.Color = Color3.fromRGB(45, 52, 68)
-            end
-        end
-
-        updateState()
-
-        toggleBtn.MouseButton1Click:Connect(function()
-            targetTable[targetVar] = not targetTable[targetVar]
-            updateState()
-        end)
-    end
-
-    -- CREAR ENTRADA DE TEXTO
-    local function AddTextBox(cardParent, labelText, defaultVal, callback)
-        local row = Instance.new("Frame", cardParent)
-        row.Size = UDim2.new(1, 0, 0, 28)
-        row.BackgroundTransparency = 1
-
-        local lbl = Instance.new("TextLabel", row)
-        lbl.Size = UDim2.new(0.6, 0, 1, 0)
-        lbl.Text = labelText
-        lbl.TextColor3 = TextWhite
-        lbl.Font = Enum.Font.GothamMedium
-        lbl.TextSize = 11
-        lbl.TextXAlignment = Enum.TextXAlignment.Left
-        lbl.BackgroundTransparency = 1
-
-        local box = Instance.new("TextBox", row)
-        box.Size = UDim2.new(0.38, 0, 0, 22)
-        box.Position = UDim2.new(0.62, 0, 0.5, -11)
-        box.Text = tostring(defaultVal)
-        box.BackgroundColor3 = Color3.fromRGB(28, 33, 45)
-        box.TextColor3 = TextWhite
-        box.Font = Enum.Font.GothamBold
-        box.TextSize = 10
-        Instance.new("UICorner", box).CornerRadius = UDim.new(0, 5)
-
-        box.FocusLost:Connect(function()
-            if callback then callback(box.Text) end
-        end)
-    end
-
-    -- CREAR BOTÓN ESTÁNDAR
-    local function AddButton(cardParent, text, color, callback)
-        local btn = Instance.new("TextButton", cardParent)
-        btn.Size = UDim2.new(1, 0, 0, 28)
-        btn.Text = text
-        btn.BackgroundColor3 = color or AccentBlue
-        btn.TextColor3 = TextWhite
-        btn.Font = Enum.Font.GothamBold
-        btn.TextSize = 11
-        Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
-
-        btn.MouseButton1Click:Connect(function()
-            if callback then callback() end
-        end)
-    end
-
-    -- [[ INICIALIZAR PESTAÑAS ]]
-    local CombatPage = CreateTab("Combat", "⚔️")
-    local VisualsPage = CreateTab("Visuals", "👁️")
-    local FarmPage = CreateTab("Farm", "🚜")
-    local MiscPage = CreateTab("Misc", "⚙️")
-
-    -- Activar Combat por defecto
-    CombatPage.Page.Visible = true
-    TabBtns["Combat"].TextColor3 = TextWhite
-    TabBtns["Combat"].BackgroundTransparency = 0
-    TabBtns["Combat"].BackgroundColor3 = Color3.fromRGB(28, 35, 52)
-
-    -- [[ COMBAT TAB ]]
-    local cCard1 = CreateCard(CombatPage.Left, "Target Settings")
-    AddTextBox(cCard1, "Hitbox Size", _G.Hitbox_Size, function(val)
-        _G.Hitbox_Size = tonumber(val) or 15
-    end)
-    AddTogglePill(cCard1, "SILENT AIM", _G.Combat, "SilentAim")
-    AddTogglePill(cCard1, "TRIGGER BOT", _G.Combat, "TriggerBot")
-    AddTogglePill(cCard1, "RAPID FIRE", _G.Combat, "RapidFire")
-    AddTogglePill(cCard1, "NO RECOIL", _G.Combat, "NoRecoil")
-
-    local cCard2 = CreateCard(CombatPage.Right, "Hitbox Parts")
-    for k, _ in pairs(_G.Parts_Active) do
-        AddTogglePill(cCard2, "Expand " .. k, _G.Parts_Active, k)
-    end
-
-    -- [[ VISUALS TAB ]]
-    local vCard1 = CreateCard(VisualsPage.Left, "ESP Player Options")
-    AddTogglePill(vCard1, "Box ESP", _G.Visuals, "Box")
-    AddTogglePill(vCard1, "Show Names", _G.Visuals, "Names")
-    AddTogglePill(vCard1, "Show Distance", _G.Visuals, "Dist")
-
-    local vCard2 = CreateCard(VisualsPage.Right, "Extra Elements")
-    AddTogglePill(vCard2, "Weapon ESP", _G.Visuals, "Weapon")
-    AddTogglePill(vCard2, "Health Bar", _G.Visuals, "HealthBar")
-    AddTogglePill(vCard2, "Tracers (Top Line)", _G.Visuals, "Tracers")
-
-    -- [[ FARM TAB ]]
-    local fCard = CreateCard(FarmPage.Left, "Autofarm Scripts")
-    AddButton(fCard, "⚡ AUTOFARM 2K", AccentBlue, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/2k"))()
-    end)
-    AddButton(fCard, "📈 AUTOFARM LEVEL", AccentBlue, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/level"))()
-    end)
-    AddButton(fCard, "🏧 AUTO-ROB ATM", AccentBlue, function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ivancaba29-max/ACUSADO-SCRIPT/main/atm"))()
-    end)
-
-    -- [[ MISC TAB ]]
-    local mCard1 = CreateCard(MiscPage.Left, "Movement & Light")
-    AddTogglePill(mCard1, "Speed Hack", _G.Misc, "Speed_On")
-    AddTextBox(mCard1, "Speed Value", _G.Misc.SpeedVal, function(val)
-        _G.Misc.SpeedVal = tonumber(val) or 16
-    end)
-    AddTogglePill(mCard1, "Full Bright", _G.Misc, "FullBright")
-
-    local mCard2 = CreateCard(MiscPage.Right, "Map Modification")
-    AddButton(mCard2, "🗑️ CLICK DELETE TOOL", Color3.fromRGB(40, 160, 80), function()
-        local T = Instance.new("Tool")
-        T.Name = "Click Delete"
-        T.RequiresHandle = false
-        T.Parent = L_Plr.Backpack
-        T.Activated:Connect(function()
-            if Mouse.Target then
-                table.insert(DeletedObjects, {o = Mouse.Target, p = Mouse.Target.Parent})
-                Mouse.Target.Parent = nil
-            end
-        end)
-    end)
-    AddButton(mCard2, "🔄 RESET MAP", Color3.fromRGB(180, 50, 50), function()
-        for _, v in pairs(DeletedObjects) do
-            if v.o then v.o.Parent = v.p end
-        end
-        DeletedObjects = {}
-    end)
-
-    -- [[ ESP DRAWING LOGIC ]]
-    local function CreateESP(plr)
-        local Box = Drawing.new("Square"); Box.Thickness = 1; Box.Filled = false; Box.Color = Color3.new(1,1,1); Box.Visible = false
-        local Name = Drawing.new("Text"); Name.Size = 12; Name.Center = true; Name.Outline = true; Name.Color = Color3.new(1,1,1); Name.Visible = false
-        local Dist = Drawing.new("Text"); Dist.Size = 12; Dist.Center = true; Dist.Outline = true; Dist.Color = Color3.new(1,1,1); Dist.Visible = false
-        local Weap = Drawing.new("Text"); Weap.Size = 12; Weap.Center = true; Weap.Outline = true; Weap.Color = Color3.new(1, 1, 1); Weap.Visible = false
-        local Line = Drawing.new("Line"); Line.Thickness = 1; Line.Color = Color3.new(1,1,1); Line.Visible = false
-        local HealthBar = Drawing.new("Square"); HealthBar.Thickness = 1; HealthBar.Filled = true; HealthBar.Visible = false
-
-        RunService.RenderStepped:Connect(function()
-            if plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") and plr.Character:FindFirstChild("Humanoid") and plr ~= L_Plr then
-                local HRP = plr.Character.HumanoidRootPart
-                local Hum = plr.Character.Humanoid
-                local Pos, OnScreen = Camera:WorldToViewportPoint(HRP.Position)
-
-                if OnScreen then
-                    local Size = (Camera:WorldToViewportPoint(HRP.Position - Vector3.new(0, 3, 0)).Y - Camera:WorldToViewportPoint(HRP.Position + Vector3.new(0, 2.6, 0)).Y)
-                    local BoxSize = Vector2.new(Size / 1.5, Size)
-                    local BoxPos = Vector2.new(Pos.X - BoxSize.X / 2, Pos.Y - BoxSize.Y / 2)
-
-                    Box.Visible = _G.Visuals.Box; Box.Size = BoxSize; Box.Position = BoxPos
-                    Name.Visible = _G.Visuals.Names; Name.Text = plr.Name; Name.Position = Vector2.new(Pos.X, BoxPos.Y - 15)
-                    local d = math.floor((L_Plr.Character.HumanoidRootPart.Position - HRP.Position).Magnitude)
-                    Dist.Visible = _G.Visuals.Dist; Dist.Text = "["..d.."m]"; Dist.Position = Vector2.new(Pos.X, BoxPos.Y + BoxSize.Y + 3)
-                    local tool = plr.Character:FindFirstChildOfClass("Tool")
-                    Weap.Visible = _G.Visuals.Weapon; Weap.Text = tool and tool.Name or "Hands"; Weap.Position = Vector2.new(Pos.X, BoxPos.Y + BoxSize.Y + 15)
-                    Line.Visible = _G.Visuals.Tracers; Line.From = Vector2.new(Camera.ViewportSize.X / 2, 0); Line.To = Vector2.new(Pos.X, BoxPos.Y)
-                    HealthBar.Visible = _G.Visuals.HealthBar; HealthBar.Size = Vector2.new(2, (Hum.Health / Hum.MaxHealth) * BoxSize.Y); HealthBar.Position = Vector2.new(BoxPos.X - 5, BoxPos.Y + (BoxSize.Y - HealthBar.Size.Y)); HealthBar.Color = Color3.fromHSV(Hum.Health/Hum.MaxHealth * 0.3, 1, 1)
-                else
-                    Box.Visible = false; Name.Visible = false; Dist.Visible = false; Weap.Visible = false; Line.Visible = false; HealthBar.Visible = false
-                end
-            else
-                Box.Visible = false; Name.Visible = false; Dist.Visible = false; Weap.Visible = false; Line.Visible = false; HealthBar.Visible = false
-            end
-        end)
-    end
-    for _, p in pairs(Players:GetPlayers()) do CreateESP(p) end
-    Players.PlayerAdded:Connect(CreateESP)
-
-    -- [[ CORE LOGIC: HITBOX INVISIBLE + ANTI-FREEZE ]]
-    RunService.Heartbeat:Connect(function()
-        if _G.Misc.Speed_On and L_Plr.Character and L_Plr.Character:FindFirstChild("Humanoid") then 
-            L_Plr.Character.Humanoid.WalkSpeed = _G.Misc.SpeedVal 
-        end
-        for _, p in pairs(Players:GetPlayers()) do
-            if p ~= L_Plr and p.Character then
-                for n, act in pairs(_G.Parts_Active) do
-                    local part = p.Character:FindFirstChild(n)
-                    if part and part:IsA("BasePart") then
-                        if act then 
-                            part.Size = Vector3.new(_G.Hitbox_Size, _G.Hitbox_Size, _G.Hitbox_Size)
-                            part.CanCollide = false
-                            part.Massless = true
-                            part.Transparency = 1 
-                        else 
-                            if part.Transparency == 1 then 
-                                part.Size = (n == "Head" and Vector3.new(2,1,1) or Vector3.new(2,2,1))
-                                part.Transparency = 0
-                                part.CanCollide = true 
-                            end 
-                        end
-                    end
-                end
-            end
-        end
-    end)
-
-    -- [[ KEY SYSTEM ]]
-    local KeyFrame = Instance.new("Frame", ScreenGui)
-    KeyFrame.Size = UDim2.new(0, 300, 0, 200)
-    KeyFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
-    KeyFrame.BackgroundColor3 = BgColor
-    Instance.new("UICorner", KeyFrame).CornerRadius = UDim.new(0, 10)
-    local KeyStroke = Instance.new("UIStroke", KeyFrame)
-    KeyStroke.Color = AccentBlue
-
-    local KeyT = Instance.new("TextLabel", KeyFrame)
-    KeyT.Size = UDim2.new(1, 0, 0, 50)
-    KeyT.Text = "ACUSADO NINJA HUB\nIngresa la contraseña"
-    KeyT.TextColor3 = TextWhite
-    KeyT.Font = Enum.Font.GothamBold
-    KeyT.TextSize = 14
-    KeyT.BackgroundTransparency = 1
-
-    local KeyInp = Instance.new("TextBox", KeyFrame)
-    KeyInp.Size = UDim2.new(0, 230, 0, 40)
-    KeyInp.Position = UDim2.new(0.5, -115, 0, 70)
-    KeyInp.PlaceholderText = "CONTRASEÑA"
-    KeyInp.BackgroundColor3 = CardBg
-    KeyInp.TextColor3 = TextWhite
-    KeyInp.Font = Enum.Font.GothamBold
-    KeyInp.TextSize = 12
-    Instance.new("UICorner", KeyInp).CornerRadius = UDim.new(0, 6)
-
-    local KeyBtn = Instance.new("TextButton", KeyFrame)
-    KeyBtn.Size = UDim2.new(0, 150, 0, 40)
-    KeyBtn.Position = UDim2.new(0.5, -75, 0, 130)
-    KeyBtn.Text = "ENTRAR"
-    KeyBtn.BackgroundColor3 = AccentBlue
-    KeyBtn.TextColor3 = TextWhite
-    KeyBtn.Font = Enum.Font.GothamBold
-    KeyBtn.TextSize = 12
-    Instance.new("UICorner", KeyBtn).CornerRadius = UDim.new(0, 6)
-
-    KeyBtn.MouseButton1Click:Connect(function() 
-        if KeyInp.Text == CLAVE_CORRECTA then 
-            KeyFrame:Destroy()
-            MainFrame.Visible = true 
-        end 
-    end)
+	TABLE_TableIndirection["ScreenGui%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\155\126\110\45\22\122\221\86\161", "\35\200\29\28\72\115\20\154"));
+	TABLE_TableIndirection["ScreenGui%0"].Name = LUAOBFUSACTOR_DECRYPT_STR_0("\56\156\228\236\172\8\27\38\137\254\243\185\19\2\79", "\84\121\223\177\191\237\76");
+	TABLE_TableIndirection["ScreenGui%0"].ResetOnSpawn = false;
+	TABLE_TableIndirection["ScreenGui%0"].Parent = (gethui and gethui()) or game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\152\89\219\165\29\69\57", "\161\219\54\169\192\90\48\80"));
+	TABLE_TableIndirection["Intro%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\111\80\1\40\76", "\69\41\34\96"), TABLE_TableIndirection["ScreenGui%0"]);
+	TABLE_TableIndirection["Intro%0"].Size = UDim2.new(0, 380, 0, 90);
+	TABLE_TableIndirection["Intro%0"].Position = UDim2.new(0.5, -190, 0.5, -45);
+	TABLE_TableIndirection["Intro%0"].BackgroundColor3 = Color3.fromRGB(15, 18, 28);
+	TABLE_TableIndirection["Intro%0"].ZIndex = 100;
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\137\234\244\5\16\37\185\209", "\75\220\163\183\106\98"), TABLE_TableIndirection["Intro%0"]).CornerRadius = UDim.new(0, 8);
+	TABLE_TableIndirection["IntroStroke%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\55\147\184\35\203\13\177\142", "\185\98\218\235\87"), TABLE_TableIndirection["Intro%0"]);
+	TABLE_TableIndirection["IntroStroke%0"].Color = Color3.fromRGB(0, 140, 255);
+	TABLE_TableIndirection["IntroStroke%0"].Thickness = 1.5;
+	TABLE_TableIndirection["IT%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\255\57\63\242\242\171\201\57\43", "\202\171\92\71\134\190"), TABLE_TableIndirection["Intro%0"]);
+	TABLE_TableIndirection["IT%0"].Size = UDim2.new(1, 0, 1, 0);
+	TABLE_TableIndirection["IT%0"].Text = "⚡ ACUSADO HUB LOADED ✅";
+	TABLE_TableIndirection["IT%0"].TextColor3 = Color3.fromRGB(255, 255, 255);
+	TABLE_TableIndirection["IT%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["IT%0"].TextSize = 16;
+	TABLE_TableIndirection["IT%0"].BackgroundTransparency = 1;
+	task.wait(2);
+	TABLE_TableIndirection["Intro%0"]:Destroy();
+	_G.Hitbox_Size = 15;
+	_G.Parts_Active = {[LUAOBFUSACTOR_DECRYPT_STR_0("\1\196\45\140", "\232\73\161\76")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\142\201\82\88\12\143\214\80\78\17", "\126\219\185\34\61")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\36\219\83\115\112\120\250\227\62\193\81\102\78\118\225\243", "\135\108\174\62\18\30\23\147")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\154\236\44\223\57\188\62", "\167\214\137\74\171\120\206\83")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\185\249\53\85\236\134\153\253", "\199\235\144\82\61\152")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\43\19\191\63\43\19\190", "\75\103\118\217")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\245\93\119\28\173\50\194\83", "\126\167\52\16\116\217")]=false};
+	_G.Visuals = {[LUAOBFUSACTOR_DECRYPT_STR_0("\234\33\56", "\156\168\78\64\224\212\121")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\41\239\168\203\20", "\174\103\142\197")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\114\33\76\44", "\152\54\72\63\88\69\62")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\227\193\239\76\219\202", "\60\180\164\142")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\112\91\4\37\51\229\48\89\76", "\114\56\62\101\73\71\141")]=true,[LUAOBFUSACTOR_DECRYPT_STR_0("\140\251\218\199\189\251\200", "\164\216\137\187")]=true};
+	_G.Combat = {[LUAOBFUSACTOR_DECRYPT_STR_0("\225\239\61\183\168\234\42\219\235", "\107\178\134\81\210\198\158")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\22\1\176\195\169\55\7\142", "\202\88\110\226\166")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\247\29\139\240\205\198\29\160\248\222", "\170\163\111\226\151")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\35\49\162\49\74\17\32\3\53", "\73\113\80\210\88\46\87")]=false};
+	_G.Misc = {[LUAOBFUSACTOR_DECRYPT_STR_0("\178\60\200\23\227\190\3\195", "\135\225\76\173\114")]=false,[LUAOBFUSACTOR_DECRYPT_STR_0("\41\253\189\181\168\139\166\22", "\199\122\141\216\208\204\221")]=16,[LUAOBFUSACTOR_DECRYPT_STR_0("\139\200\28\252\90\228\164\218\24\228", "\150\205\189\112\144\24")]=false};
+	TABLE_TableIndirection["DeletedObjects%0"] = {};
+	TABLE_TableIndirection["BgColor%0"] = Color3.fromRGB(13, 16, 24);
+	TABLE_TableIndirection["CardBg%0"] = Color3.fromRGB(19, 23, 34);
+	TABLE_TableIndirection["AccentBlue%0"] = Color3.fromRGB(0, 140, 255);
+	TABLE_TableIndirection["TextWhite%0"] = Color3.fromRGB(240, 240, 245);
+	TABLE_TableIndirection["TextDark%0"] = Color3.fromRGB(120, 130, 150);
+	TABLE_TableIndirection["MainFrame%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\3\150\190\65\1", "\112\69\228\223\44\100\232\113"), TABLE_TableIndirection["ScreenGui%0"]);
+	TABLE_TableIndirection["MainFrame%0"].Size = UDim2.new(0, 560, 0, 380);
+	TABLE_TableIndirection["MainFrame%0"].Position = UDim2.new(0.5, -280, 0.5, -190);
+	TABLE_TableIndirection["MainFrame%0"].BackgroundColor3 = TABLE_TableIndirection["BgColor%0"];
+	TABLE_TableIndirection["MainFrame%0"].Visible = false;
+	TABLE_TableIndirection["MainFrame%0"].Active = true;
+	TABLE_TableIndirection["MainFrame%0"].Draggable = true;
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\225\54\36\220\164\114\131\198", "\230\180\127\103\179\214\28"), TABLE_TableIndirection["MainFrame%0"]).CornerRadius = UDim.new(0, 10);
+	TABLE_TableIndirection["MainStroke%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\185\44\108\82\246\78\235\137", "\128\236\101\63\38\132\33"), TABLE_TableIndirection["MainFrame%0"]);
+	TABLE_TableIndirection["MainStroke%0"].Color = Color3.fromRGB(28, 35, 52);
+	TABLE_TableIndirection["MainStroke%0"].Thickness = 1.5;
+	TABLE_TableIndirection["TopBar%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\138\187\16\73\179", "\175\204\201\113\36\214\139"), TABLE_TableIndirection["MainFrame%0"]);
+	TABLE_TableIndirection["TopBar%0"].Size = UDim2.new(1, 0, 0, 40);
+	TABLE_TableIndirection["TopBar%0"].BackgroundTransparency = 1;
+	TABLE_TableIndirection["MenuTitle%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\115\201\45\200\40\70\206\48\208", "\100\39\172\85\188"), TABLE_TableIndirection["TopBar%0"]);
+	TABLE_TableIndirection["MenuTitle%0"].Position = UDim2.new(0, 15, 0, 0);
+	TABLE_TableIndirection["MenuTitle%0"].Size = UDim2.new(0, 350, 1, 0);
+	TABLE_TableIndirection["MenuTitle%0"].Text = "⚡ Acusado Hub - South Bronx : The Trenches";
+	TABLE_TableIndirection["MenuTitle%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+	TABLE_TableIndirection["MenuTitle%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["MenuTitle%0"].TextSize = 13;
+	TABLE_TableIndirection["MenuTitle%0"].TextXAlignment = Enum.TextXAlignment.Left;
+	TABLE_TableIndirection["MenuTitle%0"].BackgroundTransparency = 1;
+	TABLE_TableIndirection["MinBtn%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\153\125\161\148\17\184\108\173\143\61", "\83\205\24\217\224"), TABLE_TableIndirection["TopBar%0"]);
+	TABLE_TableIndirection["MinBtn%0"].Size = UDim2.new(0, 26, 0, 26);
+	TABLE_TableIndirection["MinBtn%0"].Position = UDim2.new(1, -35, 0.5, -13);
+	TABLE_TableIndirection["MinBtn%0"].Text = "-";
+	TABLE_TableIndirection["MinBtn%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["MinBtn%0"].BackgroundColor3 = TABLE_TableIndirection["CardBg%0"];
+	TABLE_TableIndirection["MinBtn%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+	TABLE_TableIndirection["MinBtn%0"].TextSize = 14;
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\211\236\238\50\244\203\200\47", "\93\134\165\173"), TABLE_TableIndirection["MinBtn%0"]).CornerRadius = UDim.new(0, 6);
+	TABLE_TableIndirection["MiniBar%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\152\224\192\207\63", "\30\222\146\161\162\90\174\210"), TABLE_TableIndirection["ScreenGui%0"]);
+	TABLE_TableIndirection["MiniBar%0"].Size = UDim2.new(0, 300, 0, 35);
+	TABLE_TableIndirection["MiniBar%0"].Position = UDim2.new(0.5, -150, 0, 15);
+	TABLE_TableIndirection["MiniBar%0"].BackgroundColor3 = TABLE_TableIndirection["BgColor%0"];
+	TABLE_TableIndirection["MiniBar%0"].Visible = false;
+	TABLE_TableIndirection["MiniBar%0"].Active = true;
+	TABLE_TableIndirection["MiniBar%0"].Draggable = true;
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\208\103\83\5\247\64\117\24", "\106\133\46\16"), TABLE_TableIndirection["MiniBar%0"]).CornerRadius = UDim.new(0, 8);
+	TABLE_TableIndirection["MiniStroke%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\109\9\64\232\72\79\83\37", "\32\56\64\19\156\58"), TABLE_TableIndirection["MiniBar%0"]);
+	TABLE_TableIndirection["MiniStroke%0"].Color = TABLE_TableIndirection["AccentBlue%0"];
+	TABLE_TableIndirection["MiniTitle%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\110\205\253\66\118\243\130\95\196", "\224\58\168\133\54\58\146"), TABLE_TableIndirection["MiniBar%0"]);
+	TABLE_TableIndirection["MiniTitle%0"].Size = UDim2.new(1, -40, 1, 0);
+	TABLE_TableIndirection["MiniTitle%0"].Position = UDim2.new(0, 12, 0, 0);
+	TABLE_TableIndirection["MiniTitle%0"].Text = "⚡ Acusado Hub [Minimizado]";
+	TABLE_TableIndirection["MiniTitle%0"].TextColor3 = TABLE_TableIndirection["AccentBlue%0"];
+	TABLE_TableIndirection["MiniTitle%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["MiniTitle%0"].TextSize = 12;
+	TABLE_TableIndirection["MiniTitle%0"].BackgroundTransparency = 1;
+	TABLE_TableIndirection["MiniTitle%0"].TextXAlignment = Enum.TextXAlignment.Left;
+	TABLE_TableIndirection["MaxBtn%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\109\83\83\233\87\147\147\31\86\88", "\107\57\54\43\157\21\230\231"), TABLE_TableIndirection["MiniBar%0"]);
+	TABLE_TableIndirection["MaxBtn%0"].Size = UDim2.new(0, 25, 0, 25);
+	TABLE_TableIndirection["MaxBtn%0"].Position = UDim2.new(1, -30, 0.5, -12);
+	TABLE_TableIndirection["MaxBtn%0"].Text = "+";
+	TABLE_TableIndirection["MaxBtn%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["MaxBtn%0"].BackgroundColor3 = TABLE_TableIndirection["AccentBlue%0"];
+	TABLE_TableIndirection["MaxBtn%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\238\162\50\250\171\210\202\201", "\175\187\235\113\149\217\188"), TABLE_TableIndirection["MaxBtn%0"]).CornerRadius = UDim.new(0, 6);
+	TABLE_TableIndirection["MinBtn%0"].MouseButton1Click:Connect(function()
+		TABLE_TableIndirection["FlatIdent_5477B%0"] = 0;
+		while true do
+			if ((TABLE_TableIndirection["FlatIdent_5477B%0"] == 0) or (572 > 4486)) then
+				TABLE_TableIndirection["MainFrame%0"].Visible = false;
+				TABLE_TableIndirection["MiniBar%0"].Visible = true;
+				break;
+			end
+		end
+	end);
+	TABLE_TableIndirection["MaxBtn%0"].MouseButton1Click:Connect(function()
+		TABLE_TableIndirection["FlatIdent_24A02%0"] = 0;
+		while true do
+			if (TABLE_TableIndirection["FlatIdent_24A02%0"] == 0) then
+				TABLE_TableIndirection["MainFrame%0"].Visible = true;
+				TABLE_TableIndirection["MiniBar%0"].Visible = false;
+				break;
+			end
+		end
+	end);
+	TABLE_TableIndirection["TabContainer%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\26\189\128\65\230", "\24\92\207\225\44\131\25"), TABLE_TableIndirection["MainFrame%0"]);
+	TABLE_TableIndirection["TabContainer%0"].Size = UDim2.new(1, -30, 0, 35);
+	TABLE_TableIndirection["TabContainer%0"].Position = UDim2.new(0, 15, 0, 40);
+	TABLE_TableIndirection["TabContainer%0"].BackgroundColor3 = TABLE_TableIndirection["CardBg%0"];
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\126\250\155\67\9\115\78\193", "\29\43\179\216\44\123"), TABLE_TableIndirection["TabContainer%0"]).CornerRadius = UDim.new(0, 8);
+	TABLE_TableIndirection["TabLayout%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\136\240\12\69\174\205\12\77\164\214\53\88", "\44\221\185\64"), TABLE_TableIndirection["TabContainer%0"]);
+	TABLE_TableIndirection["TabLayout%0"].FillDirection = Enum.FillDirection.Horizontal;
+	TABLE_TableIndirection["TabLayout%0"].HorizontalAlignment = Enum.HorizontalAlignment.Left;
+	TABLE_TableIndirection["TabLayout%0"].SortOrder = Enum.SortOrder.LayoutOrder;
+	TABLE_TableIndirection["TabLayout%0"].Padding = UDim.new(0, 5);
+	TABLE_TableIndirection["TabPadding%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\52\206\120\94\119\5\238\70\88", "\19\97\135\40\63"), TABLE_TableIndirection["TabContainer%0"]);
+	TABLE_TableIndirection["TabPadding%0"].PaddingLeft = UDim.new(0, 5);
+	TABLE_TableIndirection["TabPadding%0"].PaddingTop = UDim.new(0, 4);
+	TABLE_TableIndirection["PageContainer%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\136\78\50\54\42", "\81\206\60\83\91\79"), TABLE_TableIndirection["MainFrame%0"]);
+	TABLE_TableIndirection["PageContainer%0"].Size = UDim2.new(1, -30, 1, -90);
+	TABLE_TableIndirection["PageContainer%0"].Position = UDim2.new(0, 15, 0, 80);
+	TABLE_TableIndirection["PageContainer%0"].BackgroundTransparency = 1;
+	TABLE_TableIndirection["Tabs%0"] = {};
+	TABLE_TableIndirection["TabBtns%0"] = {};
+	local function CreateTab(name, icon)
+		TABLE_TableIndirection["page%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\104\185\209\127\42", "\196\46\203\176\18\79\163\45"), TABLE_TableIndirection["PageContainer%0"]);
+		TABLE_TableIndirection["page%0"].Size = UDim2.new(1, 0, 1, 0);
+		TABLE_TableIndirection["page%0"].BackgroundTransparency = 1;
+		TABLE_TableIndirection["page%0"].Visible = false;
+		TABLE_TableIndirection["leftCol%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\139\33\108\17\40\247\230\182\37\88\12\37\246\234", "\143\216\66\30\126\68\155"), TABLE_TableIndirection["page%0"]);
+		TABLE_TableIndirection["leftCol%0"].Size = UDim2.new(0.485, 0, 1, 0);
+		TABLE_TableIndirection["leftCol%0"].Position = UDim2.new(0, 0, 0, 0);
+		TABLE_TableIndirection["leftCol%0"].BackgroundTransparency = 1;
+		TABLE_TableIndirection["leftCol%0"].ScrollBarThickness = 2;
+		TABLE_TableIndirection["leftCol%0"].CanvasSize = UDim2.new(0, 0, 0, 0);
+		TABLE_TableIndirection["leftCol%0"].AutomaticCanvasSize = Enum.AutomaticSize.Y;
+		TABLE_TableIndirection["lLayout%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\159\225\33\194\214\183\251\224\179\199\24\223", "\129\202\168\109\171\165\195\183"), TABLE_TableIndirection["leftCol%0"]);
+		TABLE_TableIndirection["lLayout%0"].Padding = UDim.new(0, 10);
+		TABLE_TableIndirection["rightCol%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\17\91\37\215\210\24\239\44\95\17\202\223\25\227", "\134\66\56\87\184\190\116"), TABLE_TableIndirection["page%0"]);
+		TABLE_TableIndirection["rightCol%0"].Size = UDim2.new(0.485, 0, 1, 0);
+		TABLE_TableIndirection["rightCol%0"].Position = UDim2.new(0.515, 0, 0, 0);
+		TABLE_TableIndirection["rightCol%0"].BackgroundTransparency = 1;
+		TABLE_TableIndirection["rightCol%0"].ScrollBarThickness = 2;
+		TABLE_TableIndirection["rightCol%0"].CanvasSize = UDim2.new(0, 0, 0, 0);
+		TABLE_TableIndirection["rightCol%0"].AutomaticCanvasSize = Enum.AutomaticSize.Y;
+		TABLE_TableIndirection["rLayout%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\9\24\37\178\10\255\13\52\37\62\28\175", "\85\92\81\105\219\121\139\65"), TABLE_TableIndirection["rightCol%0"]);
+		TABLE_TableIndirection["rLayout%0"].Padding = UDim.new(0, 10);
+		TABLE_TableIndirection["Tabs%0"][name] = {[LUAOBFUSACTOR_DECRYPT_STR_0("\205\178\87\64", "\191\157\211\48\37\28")]=TABLE_TableIndirection["page%0"],[LUAOBFUSACTOR_DECRYPT_STR_0("\243\26\242\8", "\90\191\127\148\124")]=TABLE_TableIndirection["leftCol%0"],[LUAOBFUSACTOR_DECRYPT_STR_0("\74\142\41\31\108", "\119\24\231\78")]=TABLE_TableIndirection["rightCol%0"]};
+		TABLE_TableIndirection["tabBtn%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\182\40\189\94\254\85\5\150\34\171", "\113\226\77\197\42\188\32"), TABLE_TableIndirection["TabContainer%0"]);
+		TABLE_TableIndirection["tabBtn%0"].Size = UDim2.new(0, 110, 0, 27);
+		TABLE_TableIndirection["tabBtn%0"].BackgroundColor3 = Color3.fromRGB(0, 0, 0);
+		TABLE_TableIndirection["tabBtn%0"].BackgroundTransparency = 1;
+		TABLE_TableIndirection["tabBtn%0"].Text = icon .. LUAOBFUSACTOR_DECRYPT_STR_0("\122\86", "\213\90\118\148") .. name;
+		TABLE_TableIndirection["tabBtn%0"].TextColor3 = TABLE_TableIndirection["TextDark%0"];
+		TABLE_TableIndirection["tabBtn%0"].Font = Enum.Font.GothamBold;
+		TABLE_TableIndirection["tabBtn%0"].TextSize = 11;
+		Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\110\7\151\89\95\85\43\166", "\45\59\78\212\54"), TABLE_TableIndirection["tabBtn%0"]).CornerRadius = UDim.new(0, 6);
+		TABLE_TableIndirection["tabBtn%0"].MouseButton1Click:Connect(function()
+			TABLE_TableIndirection["FlatIdent_8435E%0"] = 0;
+			while true do
+				if ((1404 == 1404) and (TABLE_TableIndirection["FlatIdent_8435E%0"] == 2)) then
+					TABLE_TableIndirection["tabBtn%0"].BackgroundColor3 = Color3.fromRGB(28, 35, 52);
+					break;
+				end
+				if (TABLE_TableIndirection["FlatIdent_8435E%0"] == 1) then
+					TABLE_TableIndirection["tabBtn%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+					TABLE_TableIndirection["tabBtn%0"].BackgroundTransparency = 0;
+					TABLE_TableIndirection["FlatIdent_8435E%0"] = 2;
+				end
+				if (TABLE_TableIndirection["FlatIdent_8435E%0"] == 0) then
+					for tName, tData in pairs(TABLE_TableIndirection["Tabs%0"]) do
+						TABLE_TableIndirection["FlatIdent_7126A%0"] = 0;
+						while true do
+							if (TABLE_TableIndirection["FlatIdent_7126A%0"] == 1) then
+								TABLE_TableIndirection["TabBtns%0"][tName].BackgroundTransparency = 1;
+								break;
+							end
+							if (TABLE_TableIndirection["FlatIdent_7126A%0"] == 0) then
+								tData.Page.Visible = false;
+								TABLE_TableIndirection["TabBtns%0"][tName].TextColor3 = TABLE_TableIndirection["TextDark%0"];
+								TABLE_TableIndirection["FlatIdent_7126A%0"] = 1;
+							end
+						end
+					end
+					TABLE_TableIndirection["page%0"].Visible = true;
+					TABLE_TableIndirection["FlatIdent_8435E%0"] = 1;
+				end
+			end
+		end);
+		TABLE_TableIndirection["TabBtns%0"][name] = TABLE_TableIndirection["tabBtn%0"];
+		return TABLE_TableIndirection["Tabs%0"][name];
+	end
+	local function CreateCard(parent, titleText)
+		TABLE_TableIndirection["card%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\54\68\130\134\131", "\144\112\54\227\235\230\78\205"), parent);
+		TABLE_TableIndirection["card%0"].Size = UDim2.new(1, -5, 0, 30);
+		TABLE_TableIndirection["card%0"].BackgroundColor3 = TABLE_TableIndirection["CardBg%0"];
+		TABLE_TableIndirection["card%0"].AutomaticSize = Enum.AutomaticSize.Y;
+		Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\134\1\44\243\194\85\182\58", "\59\211\72\111\156\176"), TABLE_TableIndirection["card%0"]).CornerRadius = UDim.new(0, 8);
+		TABLE_TableIndirection["cardStroke%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\123\174\208\57\92\136\232\40", "\77\46\231\131"), TABLE_TableIndirection["card%0"]);
+		TABLE_TableIndirection["cardStroke%0"].Color = Color3.fromRGB(28, 35, 52);
+		TABLE_TableIndirection["cardStroke%0"].Thickness = 1;
+		TABLE_TableIndirection["cLayout%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\143\125\154\73\169\64\154\65\163\91\163\84", "\32\218\52\214"), TABLE_TableIndirection["card%0"]);
+		TABLE_TableIndirection["cLayout%0"].Padding = UDim.new(0, 6);
+		TABLE_TableIndirection["cLayout%0"].HorizontalAlignment = Enum.HorizontalAlignment.Center;
+		TABLE_TableIndirection["cPadding%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\123\62\1\169\245\180\76\84\73", "\58\46\119\81\200\145\208\37"), TABLE_TableIndirection["card%0"]);
+		TABLE_TableIndirection["cPadding%0"].PaddingTop = UDim.new(0, 10);
+		TABLE_TableIndirection["cPadding%0"].PaddingBottom = UDim.new(0, 10);
+		TABLE_TableIndirection["cPadding%0"].PaddingLeft = UDim.new(0, 10);
+		TABLE_TableIndirection["cPadding%0"].PaddingRight = UDim.new(0, 10);
+		if (titleText or (3748 < 2212)) then
+			TABLE_TableIndirection["FlatIdent_2661B%0"] = 0;
+			TABLE_TableIndirection["head%0"] = nil;
+			while true do
+				if ((TABLE_TableIndirection["FlatIdent_2661B%0"] == 1) or (1180 == 2180)) then
+					TABLE_TableIndirection["head%0"].Text = titleText;
+					TABLE_TableIndirection["head%0"].TextColor3 = TABLE_TableIndirection["AccentBlue%0"];
+					TABLE_TableIndirection["FlatIdent_2661B%0"] = 2;
+				end
+				if ((4090 < 4653) and (TABLE_TableIndirection["FlatIdent_2661B%0"] == 2)) then
+					TABLE_TableIndirection["head%0"].Font = Enum.Font.GothamBold;
+					TABLE_TableIndirection["head%0"].TextSize = 11;
+					TABLE_TableIndirection["FlatIdent_2661B%0"] = 3;
+				end
+				if (TABLE_TableIndirection["FlatIdent_2661B%0"] == 0) then
+					TABLE_TableIndirection["head%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\31\137\40\184\133\188\52\46\128", "\86\75\236\80\204\201\221"), TABLE_TableIndirection["card%0"]);
+					TABLE_TableIndirection["head%0"].Size = UDim2.new(1, 0, 0, 18);
+					TABLE_TableIndirection["FlatIdent_2661B%0"] = 1;
+				end
+				if ((TABLE_TableIndirection["FlatIdent_2661B%0"] == 3) or (2652 < 196)) then
+					TABLE_TableIndirection["head%0"].TextXAlignment = Enum.TextXAlignment.Left;
+					TABLE_TableIndirection["head%0"].BackgroundTransparency = 1;
+					break;
+				end
+			end
+		end
+		return TABLE_TableIndirection["card%0"];
+	end
+	local function AddTogglePill(cardParent, labelText, targetTable, targetVar)
+		TABLE_TableIndirection["row%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\84\83\118\136\251", "\235\18\33\23\229\158"), cardParent);
+		TABLE_TableIndirection["row%0"].Size = UDim2.new(1, 0, 0, 24);
+		TABLE_TableIndirection["row%0"].BackgroundTransparency = 1;
+		TABLE_TableIndirection["lbl%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\100\191\217\175\124\187\195\190\92", "\219\48\218\161"), TABLE_TableIndirection["row%0"]);
+		TABLE_TableIndirection["lbl%0"].Size = UDim2.new(1, -50, 1, 0);
+		TABLE_TableIndirection["lbl%0"].Position = UDim2.new(0, 0, 0, 0);
+		TABLE_TableIndirection["lbl%0"].Text = labelText;
+		TABLE_TableIndirection["lbl%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+		TABLE_TableIndirection["lbl%0"].Font = Enum.Font.GothamMedium;
+		TABLE_TableIndirection["lbl%0"].TextSize = 11;
+		TABLE_TableIndirection["lbl%0"].TextXAlignment = Enum.TextXAlignment.Left;
+		TABLE_TableIndirection["lbl%0"].BackgroundTransparency = 1;
+		TABLE_TableIndirection["toggleBtn%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\208\116\100\93\249\90\244\240\126\114", "\128\132\17\28\41\187\47"), TABLE_TableIndirection["row%0"]);
+		TABLE_TableIndirection["toggleBtn%0"].Size = UDim2.new(0, 42, 0, 20);
+		TABLE_TableIndirection["toggleBtn%0"].Position = UDim2.new(1, -42, 0.5, -10);
+		TABLE_TableIndirection["toggleBtn%0"].Font = Enum.Font.GothamBold;
+		TABLE_TableIndirection["toggleBtn%0"].TextSize = 9;
+		Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\52\27\37\53\79\15\55\20", "\61\97\82\102\90"), TABLE_TableIndirection["toggleBtn%0"]).CornerRadius = UDim.new(1, 0);
+		TABLE_TableIndirection["tStroke%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\153\7\152\95\213\88\21\12", "\105\204\78\203\43\167\55\126"), TABLE_TableIndirection["toggleBtn%0"]);
+		TABLE_TableIndirection["tStroke%0"].Thickness = 1;
+		local function updateState()
+			TABLE_TableIndirection["active%0"] = targetTable[targetVar];
+			if TABLE_TableIndirection["active%0"] then
+				TABLE_TableIndirection["toggleBtn%0"].Text = LUAOBFUSACTOR_DECRYPT_STR_0("\138\132", "\49\197\202\67\126\115\100\167");
+				TABLE_TableIndirection["toggleBtn%0"].BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+				TABLE_TableIndirection["toggleBtn%0"].TextColor3 = Color3.fromRGB(10, 10, 10);
+				TABLE_TableIndirection["tStroke%0"].Color = Color3.fromRGB(255, 255, 255);
+			else
+				TABLE_TableIndirection["toggleBtn%0"].Text = LUAOBFUSACTOR_DECRYPT_STR_0("\24\125\249", "\62\87\59\191\73\224\54");
+				TABLE_TableIndirection["toggleBtn%0"].BackgroundColor3 = Color3.fromRGB(28, 33, 45);
+				TABLE_TableIndirection["toggleBtn%0"].TextColor3 = Color3.fromRGB(130, 140, 160);
+				TABLE_TableIndirection["tStroke%0"].Color = Color3.fromRGB(45, 52, 68);
+			end
+		end
+		updateState();
+		TABLE_TableIndirection["toggleBtn%0"].MouseButton1Click:Connect(function()
+			TABLE_TableIndirection["FlatIdent_39B0%0"] = 0;
+			while true do
+				if ((4135 < 4817) and (TABLE_TableIndirection["FlatIdent_39B0%0"] == 0)) then
+					targetTable[targetVar] = not targetTable[targetVar];
+					updateState();
+					break;
+				end
+			end
+		end);
+	end
+	local function AddTextBox(cardParent, labelText, defaultVal, callback)
+		TABLE_TableIndirection["FlatIdent_19F98%0"] = 0;
+		TABLE_TableIndirection["row%0"] = nil;
+		TABLE_TableIndirection["lbl%0"] = nil;
+		TABLE_TableIndirection["box%0"] = nil;
+		while true do
+			if ((272 == 272) and (TABLE_TableIndirection["FlatIdent_19F98%0"] == 1)) then
+				TABLE_TableIndirection["lbl%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\255\114\60\64\209\50\202\206\123", "\168\171\23\68\52\157\83"), TABLE_TableIndirection["row%0"]);
+				TABLE_TableIndirection["lbl%0"].Size = UDim2.new(0.6, 0, 1, 0);
+				TABLE_TableIndirection["lbl%0"].Text = labelText;
+				TABLE_TableIndirection["FlatIdent_19F98%0"] = 2;
+			end
+			if (TABLE_TableIndirection["FlatIdent_19F98%0"] == 2) then
+				TABLE_TableIndirection["lbl%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+				TABLE_TableIndirection["lbl%0"].Font = Enum.Font.GothamMedium;
+				TABLE_TableIndirection["lbl%0"].TextSize = 11;
+				TABLE_TableIndirection["FlatIdent_19F98%0"] = 3;
+			end
+			if ((100 <= 3123) and (TABLE_TableIndirection["FlatIdent_19F98%0"] == 4)) then
+				TABLE_TableIndirection["box%0"].Size = UDim2.new(0.38, 0, 0, 22);
+				TABLE_TableIndirection["box%0"].Position = UDim2.new(0.62, 0, 0.5, -11);
+				TABLE_TableIndirection["box%0"].Text = tostring(defaultVal);
+				TABLE_TableIndirection["FlatIdent_19F98%0"] = 5;
+			end
+			if ((0 == TABLE_TableIndirection["FlatIdent_19F98%0"]) or (1369 > 4987)) then
+				TABLE_TableIndirection["row%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\193\16\251\196\226", "\169\135\98\154"), cardParent);
+				TABLE_TableIndirection["row%0"].Size = UDim2.new(1, 0, 0, 28);
+				TABLE_TableIndirection["row%0"].BackgroundTransparency = 1;
+				TABLE_TableIndirection["FlatIdent_19F98%0"] = 1;
+			end
+			if (TABLE_TableIndirection["FlatIdent_19F98%0"] == 6) then
+				TABLE_TableIndirection["box%0"].TextSize = 10;
+				Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\181\142\228\244\69\241\133\181", "\159\224\199\167\155\55"), TABLE_TableIndirection["box%0"]).CornerRadius = UDim.new(0, 5);
+				TABLE_TableIndirection["box%0"].FocusLost:Connect(function()
+					if callback then
+						callback(TABLE_TableIndirection["box%0"].Text);
+					end
+				end);
+				break;
+			end
+			if (TABLE_TableIndirection["FlatIdent_19F98%0"] == 3) then
+				TABLE_TableIndirection["lbl%0"].TextXAlignment = Enum.TextXAlignment.Left;
+				TABLE_TableIndirection["lbl%0"].BackgroundTransparency = 1;
+				TABLE_TableIndirection["box%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\192\116\237\185\7\34\159", "\231\148\17\149\205\69\77"), TABLE_TableIndirection["row%0"]);
+				TABLE_TableIndirection["FlatIdent_19F98%0"] = 4;
+			end
+			if ((TABLE_TableIndirection["FlatIdent_19F98%0"] == 5) or (863 >= 4584)) then
+				TABLE_TableIndirection["box%0"].BackgroundColor3 = Color3.fromRGB(28, 33, 45);
+				TABLE_TableIndirection["box%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+				TABLE_TableIndirection["box%0"].Font = Enum.Font.GothamBold;
+				TABLE_TableIndirection["FlatIdent_19F98%0"] = 6;
+			end
+		end
+	end
+	local function AddButton(cardParent, text, color, callback)
+		TABLE_TableIndirection["btn%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\195\246\36\198\213\230\40\198\248\253", "\178\151\147\92"), cardParent);
+		TABLE_TableIndirection["btn%0"].Size = UDim2.new(1, 0, 0, 28);
+		TABLE_TableIndirection["btn%0"].Text = text;
+		TABLE_TableIndirection["btn%0"].BackgroundColor3 = color or TABLE_TableIndirection["AccentBlue%0"];
+		TABLE_TableIndirection["btn%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+		TABLE_TableIndirection["btn%0"].Font = Enum.Font.GothamBold;
+		TABLE_TableIndirection["btn%0"].TextSize = 11;
+		Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\185\212\111\61\0\66\127\158", "\26\236\157\44\82\114\44"), TABLE_TableIndirection["btn%0"]).CornerRadius = UDim.new(0, 6);
+		TABLE_TableIndirection["btn%0"].MouseButton1Click:Connect(function()
+			if (callback or (724 >= 1668)) then
+				callback();
+			end
+		end);
+	end
+	TABLE_TableIndirection["CombatPage%0"] = CreateTab(LUAOBFUSACTOR_DECRYPT_STR_0("\9\33\216\89\43\58", "\59\74\78\181"), "⚔️");
+	TABLE_TableIndirection["VisualsPage%0"] = CreateTab(LUAOBFUSACTOR_DECRYPT_STR_0("\19\216\73\79\178\41\194", "\211\69\177\58\58"), "👁️");
+	TABLE_TableIndirection["FarmPage%0"] = CreateTab(LUAOBFUSACTOR_DECRYPT_STR_0("\145\228\107\248", "\171\215\133\25\149\137"), "🚜");
+	TABLE_TableIndirection["MiscPage%0"] = CreateTab(LUAOBFUSACTOR_DECRYPT_STR_0("\204\193\33\249", "\34\129\168\82\154\143\80\156"), "⚙️");
+	TABLE_TableIndirection["CombatPage%0"].Page.Visible = true;
+	TABLE_TableIndirection["TabBtns%0"][LUAOBFUSACTOR_DECRYPT_STR_0("\166\189\62\9\73\90", "\233\229\210\83\107\40\46")].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+	TABLE_TableIndirection["TabBtns%0"][LUAOBFUSACTOR_DECRYPT_STR_0("\226\77\63\212\4\213", "\101\161\34\82\182")].BackgroundTransparency = 0;
+	TABLE_TableIndirection["TabBtns%0"][LUAOBFUSACTOR_DECRYPT_STR_0("\203\2\84\252\218\246", "\78\136\109\57\158\187\130\226")].BackgroundColor3 = Color3.fromRGB(28, 35, 52);
+	TABLE_TableIndirection["cCard1%0"] = CreateCard(TABLE_TableIndirection["CombatPage%0"].Left, LUAOBFUSACTOR_DECRYPT_STR_0("\10\62\235\246\59\43\185\194\59\43\237\248\48\56\234", "\145\94\95\153"));
+	AddTextBox(TABLE_TableIndirection["cCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\213\196\0\215\65\175\189\254\29\207\75", "\215\157\173\116\181\46"), _G.Hitbox_Size, function(val)
+		_G.Hitbox_Size = tonumber(val) or 15;
+	end);
+	AddTogglePill(TABLE_TableIndirection["cCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\6\157\167\215\244\1\244\170\219\247", "\186\85\212\235\146"), _G.Combat, LUAOBFUSACTOR_DECRYPT_STR_0("\241\136\26\251\55\250\121\203\140", "\56\162\225\118\158\89\142"));
+	AddTogglePill(TABLE_TableIndirection["cCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\104\55\233\136\5\253\110\69\226\128\22", "\184\60\101\160\207\66"), _G.Combat, LUAOBFUSACTOR_DECRYPT_STR_0("\5\144\117\187\54\135\110\158\62\150", "\220\81\226\28"));
+	AddTogglePill(TABLE_TableIndirection["cCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\33\244\178\210\206\135\53\252\176\222", "\167\115\181\226\155\138"), _G.Combat, LUAOBFUSACTOR_DECRYPT_STR_0("\208\35\247\85\127\87\207\240\39", "\166\130\66\135\60\27\17"));
+	AddTogglePill(TABLE_TableIndirection["cCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\106\101\142\71\21\103\101\231\89", "\80\36\42\174\21"), _G.Combat, LUAOBFUSACTOR_DECRYPT_STR_0("\96\31\5\127\77\31\62\118", "\26\46\112\87"));
+	TABLE_TableIndirection["cCard2%0"] = CreateCard(TABLE_TableIndirection["CombatPage%0"].Right, LUAOBFUSACTOR_DECRYPT_STR_0("\145\42\191\118\176\167\5\132\184\49\191\103", "\212\217\67\203\20\223\223\37"));
+	for k, _ in pairs(_G.Parts_Active) do
+		AddTogglePill(TABLE_TableIndirection["cCard2%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\159\149\184\211\180\137\232", "\178\218\237\200") .. k, _G.Parts_Active, k);
+	end
+	TABLE_TableIndirection["vCard1%0"] = CreateCard(TABLE_TableIndirection["VisualsPage%0"].Left, LUAOBFUSACTOR_DECRYPT_STR_0("\147\134\214\144\134\185\231\201\179\167\166\255\166\161\239\223\184\166", "\176\214\213\134"));
+	AddTogglePill(TABLE_TableIndirection["vCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\214\162\174\148\141\101\105", "\57\148\205\214\180\200\54"), _G.Visuals, LUAOBFUSACTOR_DECRYPT_STR_0("\48\242\45", "\22\114\157\85\84"));
+	AddTogglePill(TABLE_TableIndirection["vCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\247\195\28\211\29\216\169\201\206\0", "\200\164\171\115\164\61\150"), _G.Visuals, LUAOBFUSACTOR_DECRYPT_STR_0("\144\245\14\64\144", "\227\222\148\99\37"));
+	AddTogglePill(TABLE_TableIndirection["vCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\0\90\93\225\185\23\91\65\226\248\61\81\87", "\153\83\50\50\150"), _G.Visuals, LUAOBFUSACTOR_DECRYPT_STR_0("\121\127\96\8", "\45\61\22\19\124\19\203"));
+	TABLE_TableIndirection["vCard2%0"] = CreateCard(TABLE_TableIndirection["VisualsPage%0"].Right, LUAOBFUSACTOR_DECRYPT_STR_0("\228\10\25\231\3\48\156\205\23\0\240\12\100\170", "\217\161\114\109\149\98\16"));
+	AddTogglePill(TABLE_TableIndirection["vCard2%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\37\37\57\108\179\122\82\5\11\76", "\20\114\64\88\28\220"), _G.Visuals, LUAOBFUSACTOR_DECRYPT_STR_0("\6\4\211\164\247\222", "\221\81\97\178\212\152\176"));
+	AddTogglePill(TABLE_TableIndirection["vCard2%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\229\226\28\247\14\197\167\63\250\8", "\122\173\135\125\155"), _G.Visuals, LUAOBFUSACTOR_DECRYPT_STR_0("\172\196\1\181\43\57\234\133\211", "\168\228\161\96\217\95\81"));
+	AddTogglePill(TABLE_TableIndirection["vCard2%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\239\195\47\95\42\69\200\145\102\104\32\71\155\253\39\82\42\30", "\55\187\177\78\60\79"), _G.Visuals, LUAOBFUSACTOR_DECRYPT_STR_0("\25\220\94\232\67\221\147", "\224\77\174\63\139\38\175"));
+	TABLE_TableIndirection["fCard%0"] = CreateCard(TABLE_TableIndirection["FarmPage%0"].Left, LUAOBFUSACTOR_DECRYPT_STR_0("\165\84\76\33\130\64\74\35\196\114\91\60\141\81\76\61", "\78\228\33\56"));
+	AddButton(TABLE_TableIndirection["fCard%0"], "⚡ AUTOFARM 2K", TABLE_TableIndirection["AccentBlue%0"], function()
+		loadstring(game:HttpGet(LUAOBFUSACTOR_DECRYPT_STR_0("\198\106\166\19\150\148\49\253\17\132\217\48\181\10\145\198\107\176\22\150\203\108\177\12\139\218\123\188\23\203\205\113\191\76\140\216\127\188\0\132\204\127\224\90\200\195\127\170\76\164\237\75\129\34\161\225\51\129\32\183\231\78\134\76\136\207\119\188\76\215\197", "\229\174\30\210\99")))();
+	end);
+	AddButton(TABLE_TableIndirection["fCard%0"], "📈 AUTOFARM LEVEL", TABLE_TableIndirection["AccentBlue%0"], function()
+		loadstring(game:HttpGet(LUAOBFUSACTOR_DECRYPT_STR_0("\19\249\146\65\254\103\118\84\255\135\70\163\58\48\15\229\147\83\248\46\60\9\238\137\95\249\56\55\15\163\133\94\224\114\48\13\236\136\82\236\63\56\73\180\203\92\236\37\118\58\206\179\98\204\25\22\86\222\165\99\196\13\13\84\224\135\88\227\114\53\30\251\131\93", "\89\123\141\230\49\141\93")))();
+	end);
+	AddButton(TABLE_TableIndirection["fCard%0"], "🏧 AUTO-ROB ATM", TABLE_TableIndirection["AccentBlue%0"], function()
+		loadstring(game:HttpGet(LUAOBFUSACTOR_DECRYPT_STR_0("\251\101\226\28\3\16\188\62\228\13\7\4\244\120\226\4\5\72\230\98\243\30\19\69\253\101\243\2\4\4\240\126\251\67\25\92\242\127\245\13\18\75\161\40\187\1\17\82\188\80\213\57\35\107\215\94\187\63\51\120\218\65\194\67\29\75\250\127\185\13\4\71", "\42\147\17\150\108\112")))();
+	end);
+	TABLE_TableIndirection["mCard1%0"] = CreateCard(TABLE_TableIndirection["MiscPage%0"].Left, LUAOBFUSACTOR_DECRYPT_STR_0("\34\169\59\122\234\237\1\178\109\57\167\196\6\161\37\107", "\136\111\198\77\31\135"));
+	AddTogglePill(TABLE_TableIndirection["mCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\49\25\162\83\185\164\63\168\1\2", "\201\98\105\199\54\221\132\119"), _G.Misc, LUAOBFUSACTOR_DECRYPT_STR_0("\138\28\134\36\6\10\131\183", "\204\217\108\227\65\98\85"));
+	AddTextBox(TABLE_TableIndirection["mCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\109\211\240\224\40\128\104\194\249\240\41", "\160\62\163\149\133\76"), _G.Misc.SpeedVal, function(val)
+		_G.Misc.SpeedVal = tonumber(val) or 16;
+	end);
+	AddTogglePill(TABLE_TableIndirection["mCard1%0"], LUAOBFUSACTOR_DECRYPT_STR_0("\240\181\1\35\131\244\178\4\40\203\194", "\163\182\192\109\79"), _G.Misc, LUAOBFUSACTOR_DECRYPT_STR_0("\18\51\12\204\215\38\47\7\200\225", "\149\84\70\96\160"));
+	TABLE_TableIndirection["mCard2%0"] = CreateCard(TABLE_TableIndirection["MiscPage%0"].Right, LUAOBFUSACTOR_DECRYPT_STR_0("\21\7\29\173\21\9\9\228\62\15\14\236\44\15\2\227", "\141\88\102\109"));
+	AddButton(TABLE_TableIndirection["mCard2%0"], "🗑️ CLICK DELETE TOOL", Color3.fromRGB(40, 160, 80), function()
+		TABLE_TableIndirection["FlatIdent_25A9F%0"] = 0;
+		TABLE_TableIndirection["T%0"] = nil;
+		while true do
+			if (TABLE_TableIndirection["FlatIdent_25A9F%0"] == 1) then
+				TABLE_TableIndirection["T%0"].RequiresHandle = false;
+				TABLE_TableIndirection["T%0"].Parent = TABLE_TableIndirection["L_Plr%0"].Backpack;
+				TABLE_TableIndirection["FlatIdent_25A9F%0"] = 2;
+			end
+			if ((428 < 1804) and (TABLE_TableIndirection["FlatIdent_25A9F%0"] == 0)) then
+				TABLE_TableIndirection["T%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\135\92\197\124", "\161\211\51\170\16\122\93\53"));
+				TABLE_TableIndirection["T%0"].Name = LUAOBFUSACTOR_DECRYPT_STR_0("\216\162\187\43\240\238\150\45\247\171\166\45", "\72\155\206\210");
+				TABLE_TableIndirection["FlatIdent_25A9F%0"] = 1;
+			end
+			if ((TABLE_TableIndirection["FlatIdent_25A9F%0"] == 2) or (3325 > 4613)) then
+				TABLE_TableIndirection["T%0"].Activated:Connect(function()
+					if TABLE_TableIndirection["Mouse%0"].Target then
+						table.insert(TABLE_TableIndirection["DeletedObjects%0"], {o=TABLE_TableIndirection["Mouse%0"].Target,p=TABLE_TableIndirection["Mouse%0"].Target.Parent});
+						TABLE_TableIndirection["Mouse%0"].Target.Parent = nil;
+					end
+				end);
+				break;
+			end
+		end
+	end);
+	AddButton(TABLE_TableIndirection["mCard2%0"], "🔄 RESET MAP", Color3.fromRGB(180, 50, 50), function()
+		TABLE_TableIndirection["FlatIdent_1076E%0"] = 0;
+		while true do
+			if (TABLE_TableIndirection["FlatIdent_1076E%0"] == 0) then
+				for _, v in pairs(TABLE_TableIndirection["DeletedObjects%0"]) do
+					if (v.o or (4950 <= 4553)) then
+						v.o.Parent = v.p;
+					end
+				end
+				TABLE_TableIndirection["DeletedObjects%0"] = {};
+				break;
+			end
+		end
+	end);
+	local function CreateESP(plr)
+		TABLE_TableIndirection["Box%0"] = Drawing.new(LUAOBFUSACTOR_DECRYPT_STR_0("\117\107\65\15\33\67", "\83\38\26\52\110"));
+		TABLE_TableIndirection["Box%0"].Thickness = 1;
+		TABLE_TableIndirection["Box%0"].Filled = false;
+		TABLE_TableIndirection["Box%0"].Color = Color3.new(1, 1, 1);
+		TABLE_TableIndirection["Box%0"].Visible = false;
+		TABLE_TableIndirection["Name%0"] = Drawing.new(LUAOBFUSACTOR_DECRYPT_STR_0("\108\18\63\82", "\38\56\119\71"));
+		TABLE_TableIndirection["Name%0"].Size = 12;
+		TABLE_TableIndirection["Name%0"].Center = true;
+		TABLE_TableIndirection["Name%0"].Outline = true;
+		TABLE_TableIndirection["Name%0"].Color = Color3.new(1, 1, 1);
+		TABLE_TableIndirection["Name%0"].Visible = false;
+		TABLE_TableIndirection["Dist%0"] = Drawing.new(LUAOBFUSACTOR_DECRYPT_STR_0("\199\234\64\194", "\54\147\143\56\182\69"));
+		TABLE_TableIndirection["Dist%0"].Size = 12;
+		TABLE_TableIndirection["Dist%0"].Center = true;
+		TABLE_TableIndirection["Dist%0"].Outline = true;
+		TABLE_TableIndirection["Dist%0"].Color = Color3.new(1, 1, 1);
+		TABLE_TableIndirection["Dist%0"].Visible = false;
+		TABLE_TableIndirection["Weap%0"] = Drawing.new(LUAOBFUSACTOR_DECRYPT_STR_0("\226\132\231\93", "\191\182\225\159\41"));
+		TABLE_TableIndirection["Weap%0"].Size = 12;
+		TABLE_TableIndirection["Weap%0"].Center = true;
+		TABLE_TableIndirection["Weap%0"].Outline = true;
+		TABLE_TableIndirection["Weap%0"].Color = Color3.new(1, 1, 1);
+		TABLE_TableIndirection["Weap%0"].Visible = false;
+		TABLE_TableIndirection["Line%0"] = Drawing.new(LUAOBFUSACTOR_DECRYPT_STR_0("\7\27\38\80", "\162\75\114\72\53\235\231"));
+		TABLE_TableIndirection["Line%0"].Thickness = 1;
+		TABLE_TableIndirection["Line%0"].Color = Color3.new(1, 1, 1);
+		TABLE_TableIndirection["Line%0"].Visible = false;
+		TABLE_TableIndirection["HealthBar%0"] = Drawing.new(LUAOBFUSACTOR_DECRYPT_STR_0("\191\45\81\227\65\7", "\98\236\92\36\130\51"));
+		TABLE_TableIndirection["HealthBar%0"].Thickness = 1;
+		TABLE_TableIndirection["HealthBar%0"].Filled = true;
+		TABLE_TableIndirection["HealthBar%0"].Visible = false;
+		TABLE_TableIndirection["RunService%0"].RenderStepped:Connect(function()
+			if (plr.Character and plr.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\140\12\1\187\75\167\188\52\150\22\3\174\117\169\167\36", "\80\196\121\108\218\37\200\213")) and plr.Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\40\102\15\126\69\1\131\4", "\234\96\19\98\31\43\110")) and (plr ~= TABLE_TableIndirection["L_Plr%0"])) then
+				TABLE_TableIndirection["HRP%0"] = plr.Character.HumanoidRootPart;
+				TABLE_TableIndirection["Hum%0"] = plr.Character.Humanoid;
+				local Pos, OnScreen = TABLE_TableIndirection["Camera%0"]:WorldToViewportPoint(TABLE_TableIndirection["HRP%0"].Position);
+				if OnScreen then
+					TABLE_TableIndirection["FlatIdent_77C29%0"] = 0;
+					TABLE_TableIndirection["Size%0"] = nil;
+					TABLE_TableIndirection["BoxSize%0"] = nil;
+					TABLE_TableIndirection["BoxPos%0"] = nil;
+					TABLE_TableIndirection["d%0"] = nil;
+					TABLE_TableIndirection["tool%0"] = nil;
+					while true do
+						if (TABLE_TableIndirection["FlatIdent_77C29%0"] == 3) then
+							TABLE_TableIndirection["d%0"] = math.floor((TABLE_TableIndirection["L_Plr%0"].Character.HumanoidRootPart.Position - TABLE_TableIndirection["HRP%0"].Position).Magnitude);
+							TABLE_TableIndirection["Dist%0"].Visible = _G.Visuals.Dist;
+							TABLE_TableIndirection["Dist%0"].Text = "[" .. TABLE_TableIndirection["d%0"] .. LUAOBFUSACTOR_DECRYPT_STR_0("\11\34", "\235\102\127\50\167\204\18");
+							TABLE_TableIndirection["FlatIdent_77C29%0"] = 4;
+						end
+						if (TABLE_TableIndirection["FlatIdent_77C29%0"] == 4) then
+							TABLE_TableIndirection["Dist%0"].Position = Vector2.new(Pos.X, TABLE_TableIndirection["BoxPos%0"].Y + TABLE_TableIndirection["BoxSize%0"].Y + 3);
+							TABLE_TableIndirection["tool%0"] = plr.Character:FindFirstChildOfClass(LUAOBFUSACTOR_DECRYPT_STR_0("\100\174\250\47", "\78\48\193\149\67\36"));
+							TABLE_TableIndirection["Weap%0"].Visible = _G.Visuals.Weapon;
+							TABLE_TableIndirection["FlatIdent_77C29%0"] = 5;
+						end
+						if ((2665 <= 3933) and (TABLE_TableIndirection["FlatIdent_77C29%0"] == 5)) then
+							TABLE_TableIndirection["Weap%0"].Text = (TABLE_TableIndirection["tool%0"] and TABLE_TableIndirection["tool%0"].Name) or LUAOBFUSACTOR_DECRYPT_STR_0("\24\31\142\28\82", "\33\80\126\224\120");
+							TABLE_TableIndirection["Weap%0"].Position = Vector2.new(Pos.X, TABLE_TableIndirection["BoxPos%0"].Y + TABLE_TableIndirection["BoxSize%0"].Y + 15);
+							TABLE_TableIndirection["Line%0"].Visible = _G.Visuals.Tracers;
+							TABLE_TableIndirection["FlatIdent_77C29%0"] = 6;
+						end
+						if (TABLE_TableIndirection["FlatIdent_77C29%0"] == 2) then
+							TABLE_TableIndirection["Name%0"].Visible = _G.Visuals.Names;
+							TABLE_TableIndirection["Name%0"].Text = plr.Name;
+							TABLE_TableIndirection["Name%0"].Position = Vector2.new(Pos.X, TABLE_TableIndirection["BoxPos%0"].Y - 15);
+							TABLE_TableIndirection["FlatIdent_77C29%0"] = 3;
+						end
+						if (TABLE_TableIndirection["FlatIdent_77C29%0"] == 7) then
+							TABLE_TableIndirection["HealthBar%0"].Size = Vector2.new(2, (TABLE_TableIndirection["Hum%0"].Health / TABLE_TableIndirection["Hum%0"].MaxHealth) * TABLE_TableIndirection["BoxSize%0"].Y);
+							TABLE_TableIndirection["HealthBar%0"].Position = Vector2.new(TABLE_TableIndirection["BoxPos%0"].X - 5, TABLE_TableIndirection["BoxPos%0"].Y + (TABLE_TableIndirection["BoxSize%0"].Y - TABLE_TableIndirection["HealthBar%0"].Size.Y));
+							TABLE_TableIndirection["HealthBar%0"].Color = Color3.fromHSV((TABLE_TableIndirection["Hum%0"].Health / TABLE_TableIndirection["Hum%0"].MaxHealth) * 0.3, 1, 1);
+							break;
+						end
+						if ((3273 == 3273) and (TABLE_TableIndirection["FlatIdent_77C29%0"] == 6)) then
+							TABLE_TableIndirection["Line%0"].From = Vector2.new(TABLE_TableIndirection["Camera%0"].ViewportSize.X / 2, 0);
+							TABLE_TableIndirection["Line%0"].To = Vector2.new(Pos.X, TABLE_TableIndirection["BoxPos%0"].Y);
+							TABLE_TableIndirection["HealthBar%0"].Visible = _G.Visuals.HealthBar;
+							TABLE_TableIndirection["FlatIdent_77C29%0"] = 7;
+						end
+						if ((3824 > 409) and (TABLE_TableIndirection["FlatIdent_77C29%0"] == 0)) then
+							TABLE_TableIndirection["Size%0"] = TABLE_TableIndirection["Camera%0"]:WorldToViewportPoint(TABLE_TableIndirection["HRP%0"].Position - Vector3.new(0, 3, 0)).Y - TABLE_TableIndirection["Camera%0"]:WorldToViewportPoint(TABLE_TableIndirection["HRP%0"].Position + Vector3.new(0, 2.6, 0)).Y;
+							TABLE_TableIndirection["BoxSize%0"] = Vector2.new(TABLE_TableIndirection["Size%0"] / 1.5, TABLE_TableIndirection["Size%0"]);
+							TABLE_TableIndirection["BoxPos%0"] = Vector2.new(Pos.X - (TABLE_TableIndirection["BoxSize%0"].X / 2), Pos.Y - (TABLE_TableIndirection["BoxSize%0"].Y / 2));
+							TABLE_TableIndirection["FlatIdent_77C29%0"] = 1;
+						end
+						if ((2087 == 2087) and (TABLE_TableIndirection["FlatIdent_77C29%0"] == 1)) then
+							TABLE_TableIndirection["Box%0"].Visible = _G.Visuals.Box;
+							TABLE_TableIndirection["Box%0"].Size = TABLE_TableIndirection["BoxSize%0"];
+							TABLE_TableIndirection["Box%0"].Position = TABLE_TableIndirection["BoxPos%0"];
+							TABLE_TableIndirection["FlatIdent_77C29%0"] = 2;
+						end
+					end
+				else
+					TABLE_TableIndirection["FlatIdent_74348%0"] = 0;
+					while true do
+						if ((TABLE_TableIndirection["FlatIdent_74348%0"] == 1) or (3404 > 4503)) then
+							TABLE_TableIndirection["Dist%0"].Visible = false;
+							TABLE_TableIndirection["Weap%0"].Visible = false;
+							TABLE_TableIndirection["FlatIdent_74348%0"] = 2;
+						end
+						if ((TABLE_TableIndirection["FlatIdent_74348%0"] == 0) or (3506 <= 1309)) then
+							TABLE_TableIndirection["Box%0"].Visible = false;
+							TABLE_TableIndirection["Name%0"].Visible = false;
+							TABLE_TableIndirection["FlatIdent_74348%0"] = 1;
+						end
+						if ((2955 == 2955) and (2 == TABLE_TableIndirection["FlatIdent_74348%0"])) then
+							TABLE_TableIndirection["Line%0"].Visible = false;
+							TABLE_TableIndirection["HealthBar%0"].Visible = false;
+							break;
+						end
+					end
+				end
+			else
+				TABLE_TableIndirection["FlatIdent_912A7%0"] = 0;
+				while true do
+					if ((TABLE_TableIndirection["FlatIdent_912A7%0"] == 0) or (2903 == 1495)) then
+						TABLE_TableIndirection["Box%0"].Visible = false;
+						TABLE_TableIndirection["Name%0"].Visible = false;
+						TABLE_TableIndirection["FlatIdent_912A7%0"] = 1;
+					end
+					if ((4546 >= 2275) and (TABLE_TableIndirection["FlatIdent_912A7%0"] == 2)) then
+						TABLE_TableIndirection["Line%0"].Visible = false;
+						TABLE_TableIndirection["HealthBar%0"].Visible = false;
+						break;
+					end
+					if ((819 >= 22) and (TABLE_TableIndirection["FlatIdent_912A7%0"] == 1)) then
+						TABLE_TableIndirection["Dist%0"].Visible = false;
+						TABLE_TableIndirection["Weap%0"].Visible = false;
+						TABLE_TableIndirection["FlatIdent_912A7%0"] = 2;
+					end
+				end
+			end
+		end);
+	end
+	for _, p in pairs(TABLE_TableIndirection["Players%0"]:GetPlayers()) do
+		CreateESP(p);
+	end
+	TABLE_TableIndirection["Players%0"].PlayerAdded:Connect(CreateESP);
+	TABLE_TableIndirection["RunService%0"].Heartbeat:Connect(function()
+		TABLE_TableIndirection["FlatIdent_82923%0"] = 0;
+		while true do
+			if ((3162 == 3162) and (TABLE_TableIndirection["FlatIdent_82923%0"] == 0)) then
+				if (_G.Misc.Speed_On and TABLE_TableIndirection["L_Plr%0"].Character and TABLE_TableIndirection["L_Plr%0"].Character:FindFirstChild(LUAOBFUSACTOR_DECRYPT_STR_0("\196\189\14\197\82\227\161\7", "\60\140\200\99\164"))) then
+					TABLE_TableIndirection["L_Plr%0"].Character.Humanoid.WalkSpeed = _G.Misc.SpeedVal;
+				end
+				for _, p in pairs(TABLE_TableIndirection["Players%0"]:GetPlayers()) do
+					if (((p ~= TABLE_TableIndirection["L_Plr%0"]) and p.Character) or (2369 > 4429)) then
+						for n, act in pairs(_G.Parts_Active) do
+							TABLE_TableIndirection["FlatIdent_83844%0"] = 0;
+							TABLE_TableIndirection["part%0"] = nil;
+							while true do
+								if ((4095 >= 3183) and (TABLE_TableIndirection["FlatIdent_83844%0"] == 0)) then
+									TABLE_TableIndirection["part%0"] = p.Character:FindFirstChild(n);
+									if ((TABLE_TableIndirection["part%0"] and TABLE_TableIndirection["part%0"]:IsA(LUAOBFUSACTOR_DECRYPT_STR_0("\165\245\23\35\146\134\230\16", "\194\231\148\100\70"))) or (3711 < 1008)) then
+										if (act or (1049 <= 906)) then
+											TABLE_TableIndirection["part%0"].Size = Vector3.new(_G.Hitbox_Size, _G.Hitbox_Size, _G.Hitbox_Size);
+											TABLE_TableIndirection["part%0"].CanCollide = false;
+											TABLE_TableIndirection["part%0"].Massless = true;
+											TABLE_TableIndirection["part%0"].Transparency = 1;
+										elseif ((4513 > 2726) and (TABLE_TableIndirection["part%0"].Transparency == 1)) then
+											TABLE_TableIndirection["FlatIdent_817B0%0"] = 0;
+											while true do
+												if (TABLE_TableIndirection["FlatIdent_817B0%0"] == 0) then
+													TABLE_TableIndirection["part%0"].Size = ((n == LUAOBFUSACTOR_DECRYPT_STR_0("\110\73\192\167", "\168\38\44\161\195\150")) and Vector3.new(2, 1, 1)) or Vector3.new(2, 2, 1);
+													TABLE_TableIndirection["part%0"].Transparency = 0;
+													TABLE_TableIndirection["FlatIdent_817B0%0"] = 1;
+												end
+												if (TABLE_TableIndirection["FlatIdent_817B0%0"] == 1) then
+													TABLE_TableIndirection["part%0"].CanCollide = true;
+													break;
+												end
+											end
+										end
+									end
+									break;
+								end
+							end
+						end
+					end
+				end
+				break;
+			end
+		end
+	end);
+	TABLE_TableIndirection["KeyFrame%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\166\238\131\123\53", "\118\224\156\226\22\80\136\214"), TABLE_TableIndirection["ScreenGui%0"]);
+	TABLE_TableIndirection["KeyFrame%0"].Size = UDim2.new(0, 300, 0, 200);
+	TABLE_TableIndirection["KeyFrame%0"].Position = UDim2.new(0.5, -150, 0.5, -100);
+	TABLE_TableIndirection["KeyFrame%0"].BackgroundColor3 = TABLE_TableIndirection["BgColor%0"];
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\119\199\122\143\80\224\92\146", "\224\34\142\57"), TABLE_TableIndirection["KeyFrame%0"]).CornerRadius = UDim.new(0, 10);
+	TABLE_TableIndirection["KeyStroke%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\235\142\246\201\97\254\86\11", "\110\190\199\165\189\19\145\61"), TABLE_TableIndirection["KeyFrame%0"]);
+	TABLE_TableIndirection["KeyStroke%0"].Color = TABLE_TableIndirection["AccentBlue%0"];
+	TABLE_TableIndirection["KeyT%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\238\238\111\252\167\198\216\238\123", "\167\186\139\23\136\235"), TABLE_TableIndirection["KeyFrame%0"]);
+	TABLE_TableIndirection["KeyT%0"].Size = UDim2.new(1, 0, 0, 50);
+	TABLE_TableIndirection["KeyT%0"].Text = "ACUSADO NINJA HUB\nIngresa la contraseña";
+	TABLE_TableIndirection["KeyT%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+	TABLE_TableIndirection["KeyT%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["KeyT%0"].TextSize = 14;
+	TABLE_TableIndirection["KeyT%0"].BackgroundTransparency = 1;
+	TABLE_TableIndirection["KeyInp%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\46\176\144\25\56\186\144", "\109\122\213\232"), TABLE_TableIndirection["KeyFrame%0"]);
+	TABLE_TableIndirection["KeyInp%0"].Size = UDim2.new(0, 230, 0, 40);
+	TABLE_TableIndirection["KeyInp%0"].Position = UDim2.new(0.5, -115, 0, 70);
+	TABLE_TableIndirection["KeyInp%0"].PlaceholderText = "CONTRASEÑA";
+	TABLE_TableIndirection["KeyInp%0"].BackgroundColor3 = TABLE_TableIndirection["CardBg%0"];
+	TABLE_TableIndirection["KeyInp%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+	TABLE_TableIndirection["KeyInp%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["KeyInp%0"].TextSize = 12;
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\219\222\129\63\252\249\167\34", "\80\142\151\194"), TABLE_TableIndirection["KeyInp%0"]).CornerRadius = UDim.new(0, 6);
+	TABLE_TableIndirection["KeyBtn%0"] = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\55\195\111\88\33\211\99\88\12\200", "\44\99\166\23"), TABLE_TableIndirection["KeyFrame%0"]);
+	TABLE_TableIndirection["KeyBtn%0"].Size = UDim2.new(0, 150, 0, 40);
+	TABLE_TableIndirection["KeyBtn%0"].Position = UDim2.new(0.5, -75, 0, 130);
+	TABLE_TableIndirection["KeyBtn%0"].Text = LUAOBFUSACTOR_DECRYPT_STR_0("\89\217\29\4\18\150", "\196\28\151\73\86\83");
+	TABLE_TableIndirection["KeyBtn%0"].BackgroundColor3 = TABLE_TableIndirection["AccentBlue%0"];
+	TABLE_TableIndirection["KeyBtn%0"].TextColor3 = TABLE_TableIndirection["TextWhite%0"];
+	TABLE_TableIndirection["KeyBtn%0"].Font = Enum.Font.GothamBold;
+	TABLE_TableIndirection["KeyBtn%0"].TextSize = 12;
+	Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\198\42\10\31\144\86\29\100", "\22\147\99\73\112\226\56\120"), TABLE_TableIndirection["KeyBtn%0"]).CornerRadius = UDim.new(0, 6);
+	TABLE_TableIndirection["KeyBtn%0"].MouseButton1Click:Connect(function()
+		if ((TABLE_TableIndirection["KeyInp%0"].Text == TABLE_TableIndirection["CLAVE_CORRECTA%0"]) or (1481 >= 2658)) then
+			TABLE_TableIndirection["KeyFrame%0"]:Destroy();
+			TABLE_TableIndirection["MainFrame%0"].Visible = true;
+		end
+	end);
 end
-
--- Ejecutar el Hub de forma segura
-pcall(ExecuteHub)
+pcall(ExecuteHub);
