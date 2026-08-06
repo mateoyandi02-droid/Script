@@ -1,0 +1,185 @@
+-- // ACUSADO CLICK DELETE (CON RESTAURAR TOTAL) - SOUTH BRONX //
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local player = Players.LocalPlayer or Players.PlayerAdded:Wait()
+local mouse = player:GetMouse()
+
+-- Crear carpeta oculta para guardar lo borrado
+local storageFolder = ReplicatedStorage:FindFirstChild("AcusadoDeletedObjects")
+if not storageFolder then
+    storageFolder = Instance.new("Folder")
+    storageFolder.Name = "AcusadoDeletedObjects"
+    storageFolder.Parent = ReplicatedStorage
+end
+
+local targetParent = player:FindFirstChild("PlayerGui") or game:GetService("CoreGui")
+
+local existing = targetParent:FindFirstChild("AcusadoClickDeleteGUI")
+if existing then
+    existing:Destroy()
+end
+
+local deleteGui = Instance.new("ScreenGui")
+deleteGui.Name = "AcusadoClickDeleteGUI"
+deleteGui.ResetOnSpawn = false
+
+pcall(function()
+    deleteGui.Parent = targetParent
+end)
+
+-- Frame Principal (Blanco)
+local mainFrame = Instance.new("Frame", deleteGui)
+mainFrame.Size = UDim2.new(0, 230, 0, 190)
+mainFrame.Position = UDim2.new(0.05, 0, 0.4, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
+
+local mainStroke = Instance.new("UIStroke", mainFrame)
+mainStroke.Color = Color3.fromRGB(200, 200, 200)
+mainStroke.Thickness = 1.5
+
+-- Título
+local title = Instance.new("TextLabel", mainFrame)
+title.Size = UDim2.new(0, 160, 0, 30)
+title.Position = UDim2.new(0, 10, 0, 5)
+title.Text = "ACUSADO CLICK DELETE"
+title.TextColor3 = Color3.fromRGB(0, 0, 0)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 11
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Botón Cerrar
+local closeBtn = Instance.new("TextButton", mainFrame)
+closeBtn.Size = UDim2.new(0, 25, 0, 25)
+closeBtn.Position = UDim2.new(1, -30, 0, 5)
+closeBtn.Text = "X"
+closeBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 12
+closeBtn.BackgroundTransparency = 1
+
+closeBtn.MouseButton1Click:Connect(function()
+    deleteGui:Destroy()
+end)
+
+-- Separador
+local line = Instance.new("Frame", mainFrame)
+line.Size = UDim2.new(1, -20, 0, 1)
+line.Position = UDim2.new(0, 10, 0, 35)
+line.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+line.BorderSizePixel = 0
+
+local function crearBoton(texto, posY)
+    local btn = Instance.new("TextButton", mainFrame)
+    btn.Size = UDim2.new(1, -20, 0, 40)
+    btn.Position = UDim2.new(0, 10, 0, posY)
+    btn.Text = texto
+    btn.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
+    btn.TextColor3 = Color3.fromRGB(0, 0, 0)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 10
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+    
+    local stroke = Instance.new("UIStroke", btn)
+    stroke.Color = Color3.fromRGB(210, 210, 210)
+    stroke.Thickness = 1
+    return btn
+end
+
+local btnClickDelete = crearBoton("CLICK DELETE: OFF", 45)
+local btnRestaurar = crearBoton("DEVOLVER TODO ATRÁS", 95)
+local btnDeshacer = crearBoton("DESHACER ÚLTIMO BORRADO", 145)
+
+-----------------------------------------------------------
+-- LÓGICA DE BORRADO Y RESTAURACIÓN
+-----------------------------------------------------------
+local borradoActivo = false
+local historialBorrados = {}
+
+-- Anti Borrado de Calle
+local function esParteDeCalle(target)
+    if not target or not target.Parent then return true end
+    
+    local name = target.Name:lower()
+    local parentName = target.Parent.Name:lower()
+
+    if name:find("road") or name:find("street") or name:find("calle") or 
+       name:find("pisa") or name:find("piso") or name:find("asfalto") or 
+       name:find("sidewalk") or name:find("acera") or name:find("ground") or
+       parentName:find("road") or parentName:find("street") or parentName:find("map") or
+       (target:IsA("BasePart") and target.Size.X > 35 and target.Size.Z > 35 and target.Size.Y < 4) then
+        return true
+    end
+    return false
+end
+
+-- Toggle Activar
+btnClickDelete.MouseButton1Click:Connect(function()
+    borradoActivo = not borradoActivo
+    if borradoActivo then
+        btnClickDelete.Text = "CLICK DELETE: ON (ACTIVADO)"
+        btnClickDelete.BackgroundColor3 = Color3.fromRGB(220, 255, 220)
+    else
+        btnClickDelete.Text = "CLICK DELETE: OFF"
+        btnClickDelete.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
+    end
+end)
+
+-- Borrado al hacer clic (Mueve a carpeta oculta)
+mouse.Button1Down:Connect(function()
+    if not borradoActivo then return end
+    
+    pcall(function()
+        local target = mouse.Target
+        
+        if target and target.Parent and player.Character and not target:IsDescendantOf(player.Character) then
+            if esParteDeCalle(target) then return end
+
+            local objetoABorrar = target
+            if target.Parent:IsA("Model") and not target.Parent:IsA("Workspace") then
+                objetoABorrar = target.Parent
+            end
+
+            table.insert(historialBorrados, {
+                objeto = objetoABorrar,
+                padreOriginal = objetoABorrar.Parent
+            })
+
+            -- Lo manda al almacenamiento oculto
+            objetoABorrar.Parent = storageFolder
+        end
+    end)
+end)
+
+-- DEVOLVER TODO ATRÁS (Restaura todo lo borrado)
+btnRestaurar.MouseButton1Click:Connect(function()
+    pcall(function()
+        for i = #historialBorrados, 1, -1 do
+            local item = historialBorrados[i]
+            if item and item.objeto and item.padreOriginal then
+                item.objeto.Parent = item.padreOriginal
+            end
+        end
+        historialBorrados = {}
+    end)
+    btnRestaurar.Text = "¡TODO DEVUELTO!"
+    task.wait(1)
+    btnRestaurar.Text = "DEVOLVER TODO ATRÁS"
+end)
+
+-- DESHACER ÚLTIMO
+btnDeshacer.MouseButton1Click:Connect(function()
+    if #historialBorrados > 0 then
+        local ultimo = table.remove(historialBorrados, #historialBorrados)
+        pcall(function()
+            if ultimo and ultimo.objeto and ultimo.padreOriginal then
+                ultimo.objeto.Parent = ultimo.padreOriginal
+            end
+        end)
+    end
+end)
