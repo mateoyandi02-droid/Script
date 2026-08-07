@@ -1,5 +1,5 @@
 -- [[ ACUSADO NINJA HUB MASHMELLOW - ACUSADO DOMINA EDITION ]] --
--- LÓGICA ORIGINAL INTACTA | DISEÑO ROSADO Y NEGRO | SIN AUTO-BUY
+-- LÓGICA ORIGINAL INTACTA | DISEÑO BLANCO Y NEGRO | SIN SINTAXIS ROTA
 
 local _K = "BACK01"
 local lp = game:GetService("Players").LocalPlayer
@@ -17,15 +17,16 @@ end
 CleanUI()
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "RobloxGui" -- Camuflaje para el Anti-Cheat
+ScreenGui.Name = "RobloxGui"
 ScreenGui.Parent = targetParent
 ScreenGui.ResetOnSpawn = false
 local tag = Instance.new("BoolValue", ScreenGui)
 tag.Name = "AC_TAG_DOMINA"
 
--- [ ESTILO ROSADO Y NEGRO ]
-local MainPink = Color3.fromRGB(255, 105, 180) -- Rosa
-local DarkBg = Color3.fromRGB(8, 8, 8)
+-- [ ESTILO BLANCO Y NEGRO ]
+local MainWhite = Color3.fromRGB(255, 255, 255)
+local DarkBg = Color3.fromRGB(10, 10, 10)
+local CardBg = Color3.fromRGB(22, 22, 22)
 
 -- [ LOGIN: ACUSADO DOMINA ]
 local LoginFrame = Instance.new("Frame", ScreenGui)
@@ -34,13 +35,13 @@ LoginFrame.Position = UDim2.new(0.5, -150, 0.4, -100)
 LoginFrame.BackgroundColor3 = DarkBg
 Instance.new("UICorner", LoginFrame)
 local LStroke = Instance.new("UIStroke", LoginFrame)
-LStroke.Color = MainPink
+LStroke.Color = MainWhite
 LStroke.Thickness = 2
 
 local LTitle = Instance.new("TextLabel", LoginFrame)
 LTitle.Size = UDim2.new(1, 0, 0, 40)
 LTitle.Text = "ACUSADO DOMINA"
-LTitle.TextColor3 = MainPink
+LTitle.TextColor3 = MainWhite
 LTitle.Font = Enum.Font.GothamBold
 LTitle.TextSize = 20
 LTitle.BackgroundTransparency = 1
@@ -49,14 +50,14 @@ local KeyInput = Instance.new("TextBox", LoginFrame)
 KeyInput.Size = UDim2.new(0.8, 0, 0, 40)
 KeyInput.Position = UDim2.new(0.1, 0, 0.4, 0)
 KeyInput.PlaceholderText = "ENTER KEY"
-KeyInput.BackgroundColor3 = Color3.fromRGB(20, 10, 15)
+KeyInput.BackgroundColor3 = CardBg
 KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
 Instance.new("UICorner", KeyInput)
 
 local LoginBtn = Instance.new("TextButton", LoginFrame)
 LoginBtn.Size = UDim2.new(0.8, 0, 0, 40)
 LoginBtn.Position = UDim2.new(0.1, 0, 0.75, 0)
-LoginBtn.BackgroundColor3 = MainPink
+LoginBtn.BackgroundColor3 = MainWhite
 LoginBtn.Text = "VERIFICAR"
 LoginBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
 LoginBtn.Font = Enum.Font.GothamBold
@@ -73,7 +74,7 @@ local function StartHub()
     MainFrame.Active = true
     MainFrame.Draggable = true
     Instance.new("UICorner", MainFrame)
-    Instance.new("UIStroke", MainFrame).Color = MainPink
+    Instance.new("UIStroke", MainFrame).Color = MainWhite
 
     -- BOTÓN PARA REGRESAR (MINIMIZADO)
     local OpenBtn = Instance.new("TextButton", ScreenGui)
@@ -81,16 +82,16 @@ local function StartHub()
     OpenBtn.Position = UDim2.new(0, 10, 0.5, 0)
     OpenBtn.BackgroundColor3 = DarkBg
     OpenBtn.Text = "ABRIR"
-    OpenBtn.TextColor3 = MainPink
+    OpenBtn.TextColor3 = MainWhite
     OpenBtn.Visible = false
     OpenBtn.Font = Enum.Font.GothamBold
     Instance.new("UICorner", OpenBtn)
-    Instance.new("UIStroke", OpenBtn).Color = MainPink
+    Instance.new("UIStroke", OpenBtn).Color = MainWhite
 
     local Title = Instance.new("TextLabel", MainFrame)
     Title.Size = UDim2.new(1, 0, 0, 40)
     Title.Text = "ACUSADO NINJA HUB MASHMELLOW"
-    Title.TextColor3 = MainPink
+    Title.TextColor3 = MainWhite
     Title.Font = Enum.Font.GothamBold
     Title.BackgroundTransparency = 1
 
@@ -100,7 +101,7 @@ local function StartHub()
     CloseBtn.Position = UDim2.new(1, -35, 0, 5)
     CloseBtn.BackgroundTransparency = 1
     CloseBtn.Text = "X"
-    CloseBtn.TextColor3 = MainPink
+    CloseBtn.TextColor3 = MainWhite
     CloseBtn.Font = Enum.Font.GothamBold
 
     local MiniBtn = Instance.new("TextButton", MainFrame)
@@ -108,13 +109,13 @@ local function StartHub()
     MiniBtn.Position = UDim2.new(1, -65, 0, 5)
     MiniBtn.BackgroundTransparency = 1
     MiniBtn.Text = "-"
-    MiniBtn.TextColor3 = MainPink
+    MiniBtn.TextColor3 = MainWhite
     MiniBtn.Font = Enum.Font.GothamBold
 
     local InfoLabel = Instance.new("TextLabel", MainFrame)
     InfoLabel.Size = UDim2.new(0.50, 0, 0, 290)
     InfoLabel.Position = UDim2.new(0.04, 0, 0, 60)
-    InfoLabel.BackgroundColor3 = Color3.fromRGB(20, 10, 15)
+    InfoLabel.BackgroundColor3 = CardBg
     InfoLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     InfoLabel.Font = Enum.Font.Code
     InfoLabel.TextSize = 11
@@ -126,7 +127,7 @@ local function StartHub()
         local b = Instance.new("TextButton", MainFrame)
         b.Size = UDim2.new(0.40, 0, 0, 55)
         b.Position = pos
-        b.BackgroundColor3 = Color3.fromRGB(35, 10, 25)
+        b.BackgroundColor3 = CardBg
         b.TextColor3 = Color3.fromRGB(255, 255, 255)
         b.Font = Enum.Font.GothamBold
         b.Text = txt
@@ -150,7 +151,7 @@ local function StartHub()
     FarmBtn.MouseButton1Click:Connect(function()
         farmActive = not farmActive
         FarmBtn.Text = farmActive and "STOP FARM" or "FARM MASHMELLOW"
-        FarmBtn.BackgroundColor3 = farmActive and MainPink or Color3.fromRGB(35, 10, 25)
+        FarmBtn.BackgroundColor3 = farmActive and MainWhite or CardBg
         if farmActive then FarmBtn.TextColor3 = Color3.fromRGB(0,0,0) else FarmBtn.TextColor3 = Color3.fromRGB(255,255,255) end
         
         task.spawn(function()
@@ -183,7 +184,7 @@ local function StartHub()
     SellBtn.MouseButton1Click:Connect(function()
         sellActive = not sellActive
         SellBtn.Text = sellActive and "SELLING ON..." or "AUTO SELL"
-        SellBtn.BackgroundColor3 = sellActive and MainPink or Color3.fromRGB(35, 10, 25)
+        SellBtn.BackgroundColor3 = sellActive and MainWhite or CardBg
         if sellActive then SellBtn.TextColor3 = Color3.fromRGB(0,0,0) else SellBtn.TextColor3 = Color3.fromRGB(255,255,255) end
     end)
 
@@ -261,4 +262,8 @@ LoginBtn.MouseButton1Click:Connect(function()
     if KeyInput.Text == _K then StartHub() else LoginBtn.Text = "ERROR" task.wait(1) LoginBtn.Text = "VERIFICAR" end
 end)
 
-lp.Idled:Connect(function() vu:CaptureController() vu:ClickButton2(Vector2.new()) end)
+-- Anti-AFK Seguro
+lp.Idled:Connect(function()
+    vu:CaptureController()
+    vu:ClickButton2(Vector2.new())
+end)
