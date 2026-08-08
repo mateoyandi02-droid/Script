@@ -1,0 +1,111 @@
+-- ACUSADO NINJA HUB (ULTRA SAFE - NO TOYO)
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+-- Carpeta oculta para que el juego no la encuentre en los personajes
+local ESP_Folder = Instance.new("Folder")
+ESP_Folder.Name = "SystemData_" .. math.random(100, 999)
+ESP_Folder.Parent = game:GetService("Workspace").CurrentCamera -- Carpeta en la Cámara (Indetectable)
+
+local Config = {
+    Enabled = false,
+    Color = Color3.fromRGB(255, 0, 0),
+    Tag = "GhostOut"
+}
+
+-- Función para aplicar el Outline sin meterlo al personaje
+local function ApplyESP(player)
+    if player == LocalPlayer then return end
+    
+    local function setup(character)
+        if not Config.Enabled then return end
+        task.wait(1) -- Espera larga para que el anticheat se relaje
+
+        -- Creamos el Highlight FUERA del personaje (en nuestra carpeta)
+        local highlight = ESP_Folder:FindFirstChild(player.Name) or Instance.new("Highlight")
+        highlight.Name = player.Name
+        highlight.Adornee = character
+        highlight.FillTransparency = 1 -- Solo contorno
+        highlight.OutlineTransparency = 0
+        highlight.OutlineColor = Config.Color
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        highlight.Parent = ESP_Folder
+    end
+
+    player.CharacterAdded:Connect(setup)
+    if player.Character then setup(player.Character) end
+end
+
+-- ==========================================
+-- INTERFAZ (UI CAMUFLADA)
+-- ==========================================
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "CoreDisplay"
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+local Main = Instance.new("Frame", ScreenGui)
+Main.Size = UDim2.new(0, 200, 0, 140)
+Main.Position = UDim2.new(0.5, -100, 0.05, 0) -- Arriba centro
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+Main.Active = true
+Main.Draggable = true
+Instance.new("UICorner", Main)
+
+local Toggle = Instance.new("TextButton", Main)
+Toggle.Size = UDim2.new(0.9, 0, 0, 35)
+Toggle.Position = UDim2.new(0.05, 0, 0.08, 0)
+Toggle.Text = "ACTIVAR ESP"
+Toggle.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+Toggle.Font = Enum.Font.GothamBold
+Instance.new("UICorner", Toggle)
+
+-- Contenedor de Colores
+local Colors = Instance.new("Frame", Main)
+Colors.Size = UDim2.new(0.9, 0, 0, 70)
+Colors.Position = UDim2.new(0.05, 0, 0.42, 0)
+Colors.BackgroundTransparency = 1
+
+local function AddC(col, x, y)
+    local b = Instance.new("TextButton", Colors)
+    b.Size = UDim2.new(0, 20, 0, 20)
+    b.Position = UDim2.new(0, x, 0, y)
+    b.BackgroundColor3 = col
+    b.Text = ""
+    local corner = Instance.new("UICorner", b)
+    corner.CornerRadius = UDim.new(1, 0)
+    
+    b.MouseButton1Click:Connect(function()
+        Config.Color = col
+        for _, h in pairs(ESP_Folder:GetChildren()) do
+            if h:IsA("Highlight") then h.OutlineColor = col end
+        end
+    end)
+end
+
+-- Fila 1
+AddC(Color3.fromRGB(255, 0, 0), 10, 5)     -- Rojo
+AddC(Color3.fromRGB(0, 255, 150), 52, 5)   -- Verde
+AddC(Color3.fromRGB(0, 150, 255), 94, 5)   -- Azul
+AddC(Color3.fromRGB(255, 255, 255), 136, 5) -- Blanco
+
+-- Fila 2 (Nuevos Colores)
+AddC(Color3.fromRGB(170, 0, 255), 10, 35)  -- Morado
+AddC(Color3.fromRGB(255, 255, 0), 52, 35)  -- Amarillo
+AddC(Color3.fromRGB(255, 20, 147), 94, 35) -- Rosado / Neon Pink
+AddC(Color3.fromRGB(0, 255, 255), 136, 35) -- Cyan / Turquesa
+
+Toggle.MouseButton1Click:Connect(function()
+    Config.Enabled = not Config.Enabled
+    Toggle.Text = Config.Enabled and "ESP: ON" or "ESP: OFF"
+    Toggle.BackgroundColor3 = Config.Enabled and Color3.fromRGB(200, 0, 0) or Color3.fromRGB(40, 40, 40)
+    
+    if Config.Enabled then
+        for _, pl in pairs(Players:GetPlayers()) do ApplyESP(pl) end
+    else
+        ESP_Folder:ClearAllChildren()
+    end
+end)
+
+Players.PlayerAdded:Connect(ApplyESP)
